@@ -12,11 +12,6 @@ namespace TilledSoil
         protected override DesignationDef DesDef => DefOfTS.GatherDirtBags;
         protected override StatDef SpeedStat => StatDefOf.PlantWorkSpeed;
 
-        //public override bool TryMakePreToilReservations(bool errorOnFailed)
-        //{
-        //    return pawn.Reserve(job.targetA, job, 1, -1, null, errorOnFailed);
-        //}
-
         protected override IEnumerable<Toil> MakeNewToils()
         {
             this.FailOn(() => !job.ignoreDesignations && Map.designationManager.DesignationAt(TargetLocA, DesDef) == null);

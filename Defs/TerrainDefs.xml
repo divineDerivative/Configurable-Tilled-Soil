@@ -50,22 +50,17 @@
 		<label>soil</label>
 		<description>Regular old dirt.</description>
 		<texturePath>Terrain/Surfaces/Soil</texturePath>
-		<pathCost>2</pathCost>
+		<pollutedTexturePath>Terrain/Surfaces/SoilPolluted</pollutedTexturePath>
 		<edgeType>FadeRough</edgeType>
+		<renderPrecedence>334</renderPrecedence>
+		<pathCost>2</pathCost>
 		<statBases>
 			<Beauty>-3</Beauty>
 			<BeautyOutdoors>0</BeautyOutdoors>
 			<Cleanliness>-1</Cleanliness>
 			<WorkToBuild>150</WorkToBuild>
 		</statBases>
-		<fertility>1.0</fertility>
-		<terrainAffordanceNeeded>SmoothableStone</terrainAffordanceNeeded>
-		<researchPrerequisites>
-			<li>terrainRehab</li>
-		</researchPrerequisites>
-		<renderPrecedence>335</renderPrecedence>
-		<designationCategory>Floors</designationCategory>
-		<constructEffect>ConstructDirt</constructEffect>
+		<scatterType>Rocky</scatterType>
 		<affordances>
 			<li>Light</li>
 			<li>Medium</li>
@@ -74,9 +69,7 @@
 			<li>Diggable</li>
 		</affordances>
 		<generatedFilth>Filth_Dirt</generatedFilth>
-		<filthAcceptanceMask>
-			<li>Unnatural</li>
-		</filthAcceptanceMask>
+		<fertility>1.0</fertility>
 		<takeFootprints>True</takeFootprints>
 		<tools>
 			<li>
@@ -91,5 +84,10 @@
 		<tags>
 			<li>Soil</li>
 		</tags>
+		<researchPrerequisites>
+			<li>terrainRehab</li>
+		</researchPrerequisites>
+		<designationCategory>Floors</designationCategory>
+		<constructEffect>ConstructDirt</constructEffect>
 	</TerrainDef>
 </Defs>

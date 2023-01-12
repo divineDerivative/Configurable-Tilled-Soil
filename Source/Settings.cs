@@ -2,6 +2,7 @@
 using RimWorld;
 using Verse;
 using System.Collections.Generic;
+using HarmonyLib;
 
 namespace TilledSoil
 {
@@ -215,6 +216,8 @@ namespace TilledSoil
         {
             TilledSoilMod.settings.ExposeData();
             TilledSoilMod.settings.UpdateSettings();
+            Harmony harmony = new Harmony("divineDerivative.tilledsoil");
+            harmony.PatchAll();
         }
     }
 }

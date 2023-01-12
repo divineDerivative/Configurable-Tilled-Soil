@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RimWorld;
+﻿using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -60,6 +55,18 @@ namespace TilledSoil
         public override void SelectedUpdate()
         {
             GenUI.RenderMouseoverBracket();
+        }
+
+        public static void Notify_BuildingSpawned(Building b)
+        {
+            foreach (IntVec3 cell in b.OccupiedRect())
+            {
+                Designation designation = b.Map.designationManager.DesignationAt(cell, DefOfTS.GatherDirtBags);
+                if (designation != null)
+                {
+                    b.Map.designationManager.RemoveDesignation(designation);
+                }
+            }
         }
     }
 }

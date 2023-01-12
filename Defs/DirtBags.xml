@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-	<!-- things -->
 	<ThingDef ParentName="StoneBlocksBase">
 		<defName>DirtBags</defName>
 		<label>bags of dirt</label>
@@ -38,7 +37,6 @@
 		<allowedArchonexusCount>0</allowedArchonexusCount>
 	</ThingDef>
 
-	<!-- acquisition -->
 	<DesignationDef>
 		<defName>GatherDirtBags</defName>
 		<texturePath>Designations/Mine</texturePath>
