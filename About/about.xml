@@ -3,8 +3,19 @@
 	<name>Configurable Tilled Soil</name>
 	<author>divineDerivative</author>
 	<packageId>divineDerivative.tilledsoil</packageId>
-	<description>This mod adds the ability to till soil to improve its fertility. You can also dig up bags of dirt to place regular soil floors, which can also be tilled. Configurable settings include fertility amount, what types of terrain can be tilled, cost and work needed to till.</description>
+	<description>This mod adds the ability to till soil to increase its fertility. There is also a research project, Terrain Rehabilitation, that allows you to replace other natural floors with regular soil. Doing this requires that you get the soil from somewhere, so you can now designate growable soil to dig up bags of dirt.\n\nConfiguration options:\n     Fertility of tilled soil, default is 120%, max is 1000%.\n     Terrain affordance required for tilling, default growable, can change to light.\n     Terrain affordance required for placing dirt, default rough stone, can change to light.\n     Whether tilling requires bags of dirt.\n     How many bags of dirt is needed for each tilled tile.\n     How much work it takes to till.</description>
 	<supportedVersions>
 		<li>1.4</li>
-	</supportedVersions> 
+	</supportedVersions>
+	<modDependencies>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+			<displayName>Harmony</displayName>
+			<steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+		</li>
+	</modDependencies>
+	<loadAfter>
+		<li>brrainz.harmony</li>
+	</loadAfter>
 </ModMetaData>

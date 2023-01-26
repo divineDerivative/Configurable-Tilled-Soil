@@ -33,7 +33,7 @@ namespace TilledSoil
                 if (workLeft < 0f)
                 {
                     DoEffect(TargetLocA);
-                    base.Map.designationManager.DesignationAt(TargetLocA, DesDef)?.Delete();
+                    Map.designationManager.DesignationAt(TargetLocA, DesDef)?.Delete();
                     ReadyForNextToil();
                 }
             };
@@ -48,7 +48,7 @@ namespace TilledSoil
 
         protected override void DoEffect(IntVec3 c)
         {
-            Thing thing = ThingMaker.MakeThing(DefOfTS.DirtBags);
+            Thing thing = ThingMaker.MakeThing(DefOfTS.DirtBag);
             GenPlace.TryPlaceThing(thing, TargetLocA, pawn.Map, ThingPlaceMode.Near);
             Map.snowGrid.SetDepth(TargetLocA, 0f);
         }

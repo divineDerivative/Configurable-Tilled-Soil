@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<TilledSoil.AlreadyMarked>Already marked for gathering dirt.</TilledSoil.AlreadyMarked>
+	<TilledSoil.Building>Building in the way.</TilledSoil.Building>
+	<TilledSoil.DesignateSoil>Must designate soil.</TilledSoil.DesignateSoil>
+	<TilledSoil.DesignatorLabel>Gather Dirt</TilledSoil.DesignatorLabel>
+	<TilledSoil.DesignatorDesc>Marks an area of soil for colonists to dig up bags of dirt.</TilledSoil.DesignatorDesc>
+</LanguageData>

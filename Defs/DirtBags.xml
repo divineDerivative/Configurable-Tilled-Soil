@@ -2,10 +2,14 @@
 <Defs>
 
 	<ThingDef ParentName="StoneBlocksBase">
-		<defName>DirtBags</defName>
+		<defName>DirtBag</defName>
 		<label>bags of dirt</label>
 		<description>Portable bags of dirt.</description>
 		<tradeability>None</tradeability>
+		<graphicData>
+			<texPath>DirtBag</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
 		<statBases>
 			<MarketValue>0.4</MarketValue>
 			<MaxHitPoints>75</MaxHitPoints>
@@ -16,23 +20,6 @@
 			<Beauty>-10</Beauty>
 		</statBases>
 		<stuffProps IsNull="True"/>
-		<!--<stuffProps>
-      <stuffAdjective>dirt</stuffAdjective>
-      <categories>
-        <li>Stony</li>
-      </categories>
-      <commonality>0</commonality>
-      <color>(255,255,255)</color>
-      <constructEffect>ConstructSnow</constructEffect>
-      <appearance>Bricks</appearance>
-      <statFactors>
-        <MaxHitPoints>0.35</MaxHitPoints>
-        <Beauty>1</Beauty>
-        <Flammability>0</Flammability>
-        <WorkToBuild>4.0</WorkToBuild>
-      </statFactors>
-      <canSuggestUseDefaultStuff>true</canSuggestUseDefaultStuff>
-    </stuffProps>-->
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<allowedArchonexusCount>0</allowedArchonexusCount>
 	</ThingDef>

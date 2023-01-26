@@ -7,6 +7,10 @@
 		<description>Allows you to correctly layer dirt on rough stone and other terrains to make underground greenhouses.</description>
 		<baseCost>1000</baseCost>
 		<techLevel>Medieval</techLevel>
+		<researchViewX>2.00</researchViewX>
+		<researchViewY>0.00</researchViewY>
+		<discoveredLetterTitle>About: Terrain Rehabilitation</discoveredLetterTitle>
+		<discoveredLetterText>You can now place dirt on other natural floors to create new growing areas.\n\nNOTE: Placed dirt floors are permanent. They cannot be removed to revert to the original natural floor.</discoveredLetterText>
 	</ResearchProjectDef>
 
 </Defs>

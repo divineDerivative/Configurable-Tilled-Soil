@@ -11,9 +11,9 @@ namespace TilledSoil
 
         public Designator_GatherDirtBags()
         {
-            defaultLabel = "Gather Dirt";
-            defaultDesc = "GatherDirt";
-            icon = ContentFinder<Texture2D>.Get("UI/Designators/Haul");
+            defaultLabel = "TilledSoil.DesignatorLabel".Translate();
+            defaultDesc = "TilledSoil.DesignatorDesc".Translate();
+            icon = ContentFinder<Texture2D>.Get("TilledSoil_Shovel");
             useMouseIcon = true;
             soundDragSustain = SoundDefOf.Designate_DragStandard;
             soundDragChanged = SoundDefOf.Designate_DragStandard_Changed;
@@ -24,27 +24,24 @@ namespace TilledSoil
 
         public override AcceptanceReport CanDesignateCell(IntVec3 cell)
         {
-            if (!cell.InBounds(Map))
+            if (!cell.InBounds(Map) || cell.Fogged(Map))
             {
                 return false;
             }
-            if (cell.Fogged(Map))
-            {
-                return false;
-            }
+
             if (Map.designationManager.DesignationAt(cell, DefOfTS.GatherDirtBags) != null)
             {
-                return "SurfaceBeingSmoothed".Translate();
+                return "TilledSoil.AlreadyMarked".Translate();
             }
             if (cell.GetEdifice(Map) != null)
             {
-                return "Building in the way";
+                return "TilledSoil.Building".Translate();
             }
             if (!cell.GetTerrain(Map).affordances.Contains(TerrainAffordanceDefOf.GrowSoil))
             {
-                return "Must designate soil";
+                return "TilledSoil.DesignateSoil".Translate();
             }
-            return AcceptanceReport.WasAccepted;
+            return true;
         }
 
         public override void DesignateSingleCell(IntVec3 c)

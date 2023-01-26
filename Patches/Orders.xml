@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
   
-  <!-- add 'make igloo bricks' to order tab -->
+  <!-- Add 'gather dirt bags' to order tab -->
   <Operation Class="PatchOperationAdd">
     <xpath>Defs/DesignationCategoryDef[defName="Orders"]/specialDesignatorClasses</xpath>
     <value>

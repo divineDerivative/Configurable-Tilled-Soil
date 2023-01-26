@@ -60,6 +60,9 @@
 			<Cleanliness>-1</Cleanliness>
 			<WorkToBuild>150</WorkToBuild>
 		</statBases>
+		<costList>
+			<DirtBag>1</DirtBag>
+		</costList>
 		<scatterType>Rocky</scatterType>
 		<affordances>
 			<li>Light</li>

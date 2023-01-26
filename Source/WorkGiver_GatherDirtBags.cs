@@ -13,10 +13,5 @@ namespace TilledSoil
         {
             return JobMaker.MakeJob(DefOfTS.GatherDirtJob, cell);
         }
-
-        //public override bool HasJobOnCell(Pawn pawn, IntVec3 c, bool forced = false)
-        //{
-        //    return !c.IsForbidden(pawn) && pawn.Map.designationManager.DesignationAt(c, DesDef) != null && pawn.CanReserve(c, 1, -1, null, forced);
-        //}
     }
 }
