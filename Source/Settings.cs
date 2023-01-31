@@ -174,7 +174,7 @@ namespace TilledSoil
             //Right hand column, with explanatory notes
             list.NewColumn();
             list.ColumnWidth = canvas.width / 3f + 180f;
-            Rect rect = list.Label("TilledSoil.FertilityExplaination".Translate());
+            Rect rect = list.Label("TilledSoil.FertilityExplanation".Translate());
             list.Gap(16f);
             if (settings.canTillOn == "Light")
             {
