@@ -9,8 +9,8 @@ namespace TilledSoil
     public class TilledSoilSettings : ModSettings
     {
         public int fertility = 120;
-        public string canTillOn;
-        public string canTurnIntoDirt;
+        public string canTillOn = "GrowSoil";
+        public string canTurnIntoDirt = "SmoothableStone";
         public bool requireCost = true;
         public int soilCost = 1;
         public int workAmount = 500;
