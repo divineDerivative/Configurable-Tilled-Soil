@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Furniture Expanded - Architect</li>
+		</mods>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/TerrainDef[defName="Dirt"]/affordances</xpath>
+			<value>
+				<li>VFEArch_Foundation</li>
+				<li>VFEArch_Soil</li>
+			</value>
+		</match>
+	</Operation>
+
+
+</Patch>
