@@ -6,6 +6,7 @@
 	<description>This mod adds the ability to till soil to increase its fertility. There is also a research project, Terrain Rehabilitation, that allows you to replace other natural floors with regular soil. Doing this requires that you get the soil from somewhere, so you can now designate growable soil to dig up bags of dirt.\n\nConfiguration options:\n     Fertility of tilled soil, default is 120%, max is 1000%.\n     Terrain affordance required for tilling, default growable, can change to light.\n     Terrain affordance required for placing dirt, default rough stone, can change to light.\n     Whether tilling requires bags of dirt.\n     How many bags of dirt is needed for each tilled tile.\n     How much work it takes to till.</description>
 	<supportedVersions>
 		<li>1.4</li>
+		<li>1.5</li>
 	</supportedVersions>
 	<modDependencies>
 		<li>

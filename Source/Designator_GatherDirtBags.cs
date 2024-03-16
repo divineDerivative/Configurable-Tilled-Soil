@@ -37,7 +37,7 @@ namespace TilledSoil
             {
                 return "TilledSoil.Building".Translate();
             }
-            if (!cell.GetTerrain(Map).affordances.Contains(TerrainAffordanceDefOf.GrowSoil))
+            if (!cell.GetTerrain(Map).affordances.Contains(DefOfTS.GrowSoil))
             {
                 return "TilledSoil.DesignateSoil".Translate();
             }

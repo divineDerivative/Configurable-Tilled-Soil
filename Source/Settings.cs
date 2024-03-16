@@ -119,7 +119,7 @@ namespace TilledSoil
             List<TerrainAffordanceDef> tillList = new List<TerrainAffordanceDef>
             {
                 TerrainAffordanceDefOf.Light,
-                TerrainAffordanceDefOf.GrowSoil,
+                DefOfTS.GrowSoil,
             };
             if (list.ButtonTextLabeled(null, DefDatabase<TerrainAffordanceDef>.GetNamed(settings.canTillOn).label))
             {

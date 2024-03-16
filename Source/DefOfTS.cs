@@ -9,6 +9,7 @@ namespace TilledSoil
         public static DesignationDef GatherDirtBags;
         public static ThingDef DirtBag;
         public static JobDef GatherDirtJob;
+        public static TerrainAffordanceDef GrowSoil;
 
         static DefOfTS()
         {
