@@ -34,6 +34,7 @@
 					<xpath>/Defs/TerrainDef[defName = "Soil"]/statBases</xpath>
 					<value>
 						<WorkToBuild>150</WorkToBuild>
+						<MarketValue>0</MarketValue>
 					</value>
 				</li>
 			</operations>
