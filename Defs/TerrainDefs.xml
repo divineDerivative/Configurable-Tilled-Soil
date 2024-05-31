@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-
 	<TerrainDef ParentName="NaturalTerrainBase">
 		<defName>TilledSoil</defName>
 		<label>tilled soil</label>
@@ -43,54 +42,5 @@
 		<tags>
 			<li>Soil</li>
 		</tags>
-	</TerrainDef>
-
-	<TerrainDef ParentName="NaturalTerrainBase">
-		<defName>Dirt</defName>
-		<label>soil</label>
-		<description>Regular old dirt.</description>
-		<texturePath>Terrain/Surfaces/Soil</texturePath>
-		<pollutedTexturePath>Terrain/Surfaces/SoilPolluted</pollutedTexturePath>
-		<edgeType>FadeRough</edgeType>
-		<renderPrecedence>334</renderPrecedence>
-		<pathCost>2</pathCost>
-		<statBases>
-			<Beauty>-3</Beauty>
-			<BeautyOutdoors>0</BeautyOutdoors>
-			<Cleanliness>-1</Cleanliness>
-			<WorkToBuild>150</WorkToBuild>
-		</statBases>
-		<costList>
-			<DirtBag>1</DirtBag>
-		</costList>
-		<scatterType>Rocky</scatterType>
-		<affordances>
-			<li>Light</li>
-			<li>Medium</li>
-			<li>Heavy</li>
-			<li>GrowSoil</li>
-			<li>Diggable</li>
-		</affordances>
-		<generatedFilth>Filth_Dirt</generatedFilth>
-		<fertility>1.0</fertility>
-		<takeFootprints>True</takeFootprints>
-		<tools>
-			<li>
-				<label>dirt</label>
-				<capacities>
-					<li>KickMaterialInEyes</li>
-				</capacities>
-				<hediff>DirtInEyes</hediff>
-				<cooldownTime>1.5</cooldownTime>
-			</li>
-		</tools>
-		<tags>
-			<li>Soil</li>
-		</tags>
-		<researchPrerequisites>
-			<li>terrainRehab</li>
-		</researchPrerequisites>
-		<designationCategory>Floors</designationCategory>
-		<constructEffect>ConstructDirt</constructEffect>
 	</TerrainDef>
 </Defs>

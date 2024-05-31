@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<!-- Add 'gather dirt bags' to order tab -->
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/DesignationCategoryDef[defName="Orders"]/specialDesignatorClasses</xpath>
+		<value>
+			<li>TilledSoil.Designator_GatherDirtBags</li>
+		</value>
+	</Operation>
+
+	<!--Don't need to do any of this if Soil Relocation is active-->
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Soil Relocation Framework (Continued)</li>
+			<li>Soil Relocation Framework</li>
+		</mods>
+		<nomatch Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/TerrainDef[defName = "Soil"]</xpath>
+					<value>
+						<description>Basic soil.</description>
+						<costList>
+							<DirtBag>1</DirtBag>
+						</costList>
+						<researchPrerequisites>
+							<li>terrainRehab</li>
+						</researchPrerequisites>
+						<designationCategory>Floors</designationCategory>
+						<constructEffect>ConstructDirt</constructEffect>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/TerrainDef[defName = "Soil"]/statBases</xpath>
+					<value>
+						<WorkToBuild>150</WorkToBuild>
+					</value>
+				</li>
+			</operations>
+		</nomatch>
+	</Operation>
+</Patch>

@@ -56,9 +56,7 @@ namespace TilledSoil
             {
                 tilledSoil.costList = new List<ThingDefCountClass>();
             }
-
-            TerrainDef dirt = TerrainDef.Named("Dirt");
-            dirt.terrainAffordanceNeeded = DefDatabase<TerrainAffordanceDef>.GetNamed(canTurnIntoDirt);
+                TerrainDefOf.Soil.terrainAffordanceNeeded = DefDatabase<TerrainAffordanceDef>.GetNamed(canTurnIntoDirt);
         }
     }
 
