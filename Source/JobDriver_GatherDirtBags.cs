@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using RimWorld;
+﻿using RimWorld;
+using System.Collections.Generic;
 using Verse;
 using Verse.AI;
 
@@ -26,10 +26,7 @@ namespace TilledSoil
                 float num = (SpeedStat != null && !SpeedStat.Worker.IsDisabledFor(doWork.actor)) ? doWork.actor.GetStatValue(SpeedStat) : 1f;
                 num *= 1.7f;
                 workLeft -= num;
-                if (doWork.actor.skills != null)
-                {
-                    doWork.actor.skills.Learn(SkillDefOf.Plants, 0.1f);
-                }
+                doWork.actor.skills?.Learn(SkillDefOf.Plants, 0.1f);
                 if (workLeft < 0f)
                 {
                     DoEffect(TargetLocA);
@@ -38,7 +35,7 @@ namespace TilledSoil
                 }
             };
             doWork.FailOnCannotTouch(TargetIndex.A, PathEndMode.Touch);
-            doWork.WithProgressBar(TargetIndex.A, () => 1f - workLeft / BaseWorkAmount);
+            doWork.WithProgressBar(TargetIndex.A, () => 1f - (workLeft / BaseWorkAmount));
             doWork.defaultCompleteMode = ToilCompleteMode.Never;
             doWork.WithEffect(EffecterDefOf.ConstructDirt, TargetIndex.A);
             doWork.PlaySustainerOrSound(SoundDefOf.Interact_ConstructDirt);

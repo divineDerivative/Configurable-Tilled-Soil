@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using HarmonyLib;
 using RimWorld;
-using Verse;
 using System.Collections.Generic;
-using HarmonyLib;
+using UnityEngine;
+using Verse;
 
 namespace TilledSoil
 {
@@ -50,14 +50,14 @@ namespace TilledSoil
 
             if (requireCost)
             {
-                tilledSoil.costList = new List<ThingDefCountClass>
-                {
+                tilledSoil.costList =
+                [
                     new ThingDefCountClass(DirtBag, soilCost)
-                };
+                ];
             }
             else
             {
-                tilledSoil.costList = new List<ThingDefCountClass>();
+                tilledSoil.costList = [];
             }
             if (!SoilRelocationActive)
             {
@@ -91,9 +91,9 @@ namespace TilledSoil
         public override void DoSettingsWindowContents(Rect canvas)
         {
 
-            Listing_Standard list = new Listing_Standard
+            Listing_Standard list = new()
             {
-                ColumnWidth = canvas.width / 3f - 100f
+                ColumnWidth = (canvas.width / 3f) - 100f
             };
             //Left hand column, labels for settings
             list.Begin(canvas);
@@ -120,14 +120,14 @@ namespace TilledSoil
             if (settings.fertility > 1000) { settings.fertility = 1000; }
             list.Gap();
 
-            List<TerrainAffordanceDef> tillList = new List<TerrainAffordanceDef>
-            {
+            List<TerrainAffordanceDef> tillList =
+            [
                 TerrainAffordanceDefOf.Light,
                 DefOfTS.GrowSoil,
-            };
+            ];
             if (list.ButtonTextLabeled(null, DefDatabase<TerrainAffordanceDef>.GetNamed(settings.canTillOn).label))
             {
-                List<FloatMenuOption> options = new List<FloatMenuOption>();
+                List<FloatMenuOption> options = [];
                 foreach (TerrainAffordanceDef terrain in tillList)
                 {
                     options.Add(new FloatMenuOption(terrain.label, delegate
@@ -139,14 +139,14 @@ namespace TilledSoil
             }
             list.Gap();
 
-            List<TerrainAffordanceDef> dirtList = new List<TerrainAffordanceDef>
-            {
+            List<TerrainAffordanceDef> dirtList =
+            [
                 TerrainAffordanceDefOf.Light,
                 TerrainAffordanceDefOf.SmoothableStone,
-            };
+            ];
             if (list.ButtonTextLabeled(null, DefDatabase<TerrainAffordanceDef>.GetNamed(settings.canTurnIntoDirt).label))
             {
-                List<FloatMenuOption> options = new List<FloatMenuOption>();
+                List<FloatMenuOption> options = [];
                 foreach (TerrainAffordanceDef terrain in dirtList)
                 {
                     options.Add(new FloatMenuOption(terrain.label, delegate
@@ -177,7 +177,7 @@ namespace TilledSoil
 
             //Right hand column, with explanatory notes
             list.NewColumn();
-            list.ColumnWidth = canvas.width / 3f + 180f;
+            list.ColumnWidth = (canvas.width / 3f) + 180f;
             Rect rect = list.Label("TilledSoil.FertilityExplanation".Translate());
             list.Gap(16f);
             if (settings.canTillOn == "Light")
@@ -235,7 +235,7 @@ namespace TilledSoil
                 TilledSoilSettings.DirtBag = DefDatabase<ThingDef>.GetNamed("DirtBag");
             }
             TilledSoilMod.settings.UpdateSettings();
-            Harmony harmony = new Harmony("divineDerivative.tilledsoil");
+            Harmony harmony = new("divineDerivative.tilledsoil");
             harmony.PatchAll();
         }
     }
