@@ -48,7 +48,7 @@ namespace TilledSoil
 
         protected override void DoEffect(IntVec3 c)
         {
-            Thing thing = ThingMaker.MakeThing(DefOfTS.DirtBag);
+            Thing thing = ThingMaker.MakeThing(TilledSoilSettings.DirtBag);
             GenPlace.TryPlaceThing(thing, TargetLocA, pawn.Map, ThingPlaceMode.Near);
             Map.snowGrid.SetDepth(TargetLocA, 0f);
         }

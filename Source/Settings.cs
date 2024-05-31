@@ -15,6 +15,9 @@ namespace TilledSoil
         public int soilCost = 1;
         public int workAmount = 500;
 
+        internal static ThingDef DirtBag;
+        internal static bool SoilRelocationActive;
+
         public float Fertility => fertility / 100f;
 
         public override void ExposeData()
@@ -49,14 +52,17 @@ namespace TilledSoil
             {
                 tilledSoil.costList = new List<ThingDefCountClass>
                 {
-                    new ThingDefCountClass(DefOfTS.DirtBag, soilCost)
+                    new ThingDefCountClass(DirtBag, soilCost)
                 };
             }
             else
             {
                 tilledSoil.costList = new List<ThingDefCountClass>();
             }
+            if (!SoilRelocationActive)
+            {
                 TerrainDefOf.Soil.terrainAffordanceNeeded = DefDatabase<TerrainAffordanceDef>.GetNamed(canTurnIntoDirt);
+            }
         }
     }
 
@@ -105,7 +111,7 @@ namespace TilledSoil
                 list.Gap();
             }
             list.Label("TilledSoil.WorkAmount".Translate());
-            
+
             list.Gap();
 
             //Middle column, where settings can be changed
@@ -219,6 +225,15 @@ namespace TilledSoil
         static OnStartup()
         {
             TilledSoilMod.settings.ExposeData();
+            if (ModsConfig.IsActive("mlie.soilrelocationframework") || ModsConfig.IsActive("udderlyevelyn.soilrelocation"))
+            {
+                TilledSoilSettings.SoilRelocationActive = true;
+                TilledSoilSettings.DirtBag = DefDatabase<ThingDef>.GetNamed("SR_Soil");
+            }
+            else
+            {
+                TilledSoilSettings.DirtBag = DefDatabase<ThingDef>.GetNamed("DirtBag");
+            }
             TilledSoilMod.settings.UpdateSettings();
             Harmony harmony = new Harmony("divineDerivative.tilledsoil");
             harmony.PatchAll();
