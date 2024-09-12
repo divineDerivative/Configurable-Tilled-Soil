@@ -16,6 +16,7 @@ namespace TilledSoil
         public int workAmount = 500;
 
         internal static ThingDef DirtBag;
+        internal static TerrainDef TilledSoil;
         internal static bool SoilRelocationActive;
 
         public float Fertility => fertility / 100f;
@@ -43,21 +44,19 @@ namespace TilledSoil
 
         public void UpdateSettings()
         {
-            TerrainDef tilledSoil = TerrainDef.Named("TilledSoil");
-            tilledSoil.fertility = Fertility;
-            tilledSoil.SetStatBaseValue(StatDefOf.WorkToBuild, workAmount);
-            tilledSoil.terrainAffordanceNeeded = DefDatabase<TerrainAffordanceDef>.GetNamed(canTillOn);
+            TilledSoil.fertility = Fertility;
+            TilledSoil.terrainAffordanceNeeded = DefDatabase<TerrainAffordanceDef>.GetNamed(canTillOn);
 
             if (requireCost)
             {
-                tilledSoil.costList =
+                TilledSoil.costList =
                 [
                     new ThingDefCountClass(DirtBag, soilCost)
                 ];
             }
             else
             {
-                tilledSoil.costList = [];
+                TilledSoil.costList = [];
             }
             if (!SoilRelocationActive)
             {
@@ -78,6 +77,8 @@ namespace TilledSoil
         public TilledSoilMod(ModContentPack content) : base(content)
         {
             settings = GetSettings<TilledSoilSettings>();
+            Harmony harmony = new("divineDerivative.tilledsoil");
+            harmony.PatchAll();
         }
 
         public override void WriteSettings()
@@ -235,8 +236,6 @@ namespace TilledSoil
                 TilledSoilSettings.DirtBag = DefDatabase<ThingDef>.GetNamed("DirtBag");
             }
             TilledSoilMod.settings.UpdateSettings();
-            Harmony harmony = new("divineDerivative.tilledsoil");
-            harmony.PatchAll();
         }
     }
 }
