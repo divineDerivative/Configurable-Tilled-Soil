@@ -34,7 +34,7 @@
     <ErrorReport>prompt</ErrorReport>
     <DefineConstants>v1_5</DefineConstants>
   </PropertyGroup>
-    <Choose>
+  <Choose>
     <When Condition="'$(Configuration)|$(Platform)' == '1.4|AnyCPU'">
       <ItemGroup>
         <PackageReference Include="Lib.Harmony">
@@ -69,6 +69,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="WorkGiver_GatherDirtBags.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="DivineFramework">
+      <HintPath>..\..\Settings Stuff\Assemblies\DivineFramework.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

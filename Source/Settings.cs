@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using DivineFramework;
+using HarmonyLib;
 using RimWorld;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,16 +33,6 @@ namespace TilledSoil
             base.ExposeData();
         }
 
-        public void ResetSettings()
-        {
-            fertility = 120;
-            canTillOn = "GrowSoil";
-            canTurnIntoDirt = "SmoothableStone";
-            requireCost = true;
-            soilCost = 1;
-            workAmount = 500;
-        }
-
         public void UpdateSettings()
         {
             TilledSoil.fertility = Fertility;
@@ -68,11 +59,6 @@ namespace TilledSoil
     public class TilledSoilMod : Mod
     {
         public static TilledSoilSettings settings;
-        private string soilCostBuffer;
-        private string workAmountBuffer;
-        private string fertilityBuffer;
-        const float gap2 = 24f;
-        const float gap3 = 16f;
 
         public TilledSoilMod(ModContentPack content) : base(content)
         {
@@ -89,134 +75,174 @@ namespace TilledSoil
 
         public override string SettingsCategory() => "TilledSoil.ModTitle".Translate();
 
+        SettingsHandler<TilledSoilSettings> settingsHandler = new();
+
         public override void DoSettingsWindowContents(Rect canvas)
         {
-
-            Listing_Standard list = new()
-            {
-                ColumnWidth = (canvas.width / 3f) - 100f
-            };
-            //Left hand column, labels for settings
+            float columnWidth = (1f / 3f) - 0.1f;
+            Listing_Standard list = new();
             list.Begin(canvas);
-            list.Label("TilledSoil.FertilityLabel".Translate(settings.fertility.ToString()));
-            list.Gap(15f);
-            list.Label("TilledSoil.AffordanceTill".Translate());
-            list.Gap(gap2 + 1f);
-            list.Label("TilledSoil.AffordanceDirt".Translate());
-            list.Gap(gap3);
-            list.Label("TilledSoil.RequireCost".Translate());
-            list.Gap();
-            if (settings.requireCost)
+            if (!settingsHandler.Initialized)
             {
-                list.Label("TilledSoil.DirtCost".Translate());
-                list.Gap();
-            }
-            list.Label("TilledSoil.WorkAmount".Translate());
+                settingsHandler.width = canvas.width;
+                //Fertility
+                SetUpFertilityRow();
 
-            list.Gap();
+                //Affordance for tilling
+                SetUpTillAffordanceRow();
 
-            //Middle column, where settings can be changed
-            list.NewColumn();
-            list.IntEntry(ref settings.fertility, ref fertilityBuffer);
-            if (settings.fertility > 1000) { settings.fertility = 1000; }
-            list.Gap();
+                //Affordance for dirt
+                SetUpDirtAffordanceRow();
 
-            List<TerrainAffordanceDef> tillList =
-            [
-                TerrainAffordanceDefOf.Light,
-                DefOfTS.GrowSoil,
-            ];
-            if (list.ButtonTextLabeled(null, DefDatabase<TerrainAffordanceDef>.GetNamed(settings.canTillOn).label))
-            {
-                List<FloatMenuOption> options = [];
-                foreach (TerrainAffordanceDef terrain in tillList)
-                {
-                    options.Add(new FloatMenuOption(terrain.label, delegate
-                    {
-                        settings.canTillOn = terrain.defName;
-                    }));
-                }
-                Find.WindowStack.Add(new FloatMenu(options));
-            }
-            list.Gap();
+                //Tilled soil cost required
+                SetUpSoilRequiredRow();
 
-            List<TerrainAffordanceDef> dirtList =
-            [
-                TerrainAffordanceDefOf.Light,
-                TerrainAffordanceDefOf.SmoothableStone,
-            ];
-            if (list.ButtonTextLabeled(null, DefDatabase<TerrainAffordanceDef>.GetNamed(settings.canTurnIntoDirt).label))
-            {
-                List<FloatMenuOption> options = [];
-                foreach (TerrainAffordanceDef terrain in dirtList)
-                {
-                    options.Add(new FloatMenuOption(terrain.label, delegate
-                    {
-                        settings.canTurnIntoDirt = terrain.defName;
-                    }));
-                }
-                Find.WindowStack.Add(new FloatMenu(options));
-            }
-            list.Gap(14f);
-            list.CheckboxLabeled("", ref settings.requireCost);
-            list.Gap();
-            if (settings.requireCost)
-            {
-                list.TextFieldNumeric(ref settings.soilCost, ref soilCostBuffer, 0f, 100f);
-                list.Gap();
-            }
-            list.TextFieldNumeric(ref settings.workAmount, ref workAmountBuffer, 1f, 10000f);
-            list.Gap();
+                //Tilled soil cost amount
+                SetUpSoilCostRow();
 
-            if (list.ButtonText(Translator.Translate("RestoreToDefaultSettings")))
-            {
-                settings.ResetSettings();
-                fertilityBuffer = settings.fertility.ToString();
-                workAmountBuffer = settings.workAmount.ToString();
-                soilCostBuffer = settings.soilCost.ToString();
+                //Tilled soil work amount
+                SetUpWorkAmountRow();
+
+                //Reset button
+                SetUpResetButton();
+
+                settingsHandler.Initialize();
             }
 
-            //Right hand column, with explanatory notes
-            list.NewColumn();
-            list.ColumnWidth = (canvas.width / 3f) + 180f;
-            Rect rect = list.Label("TilledSoil.FertilityExplanation".Translate());
-            list.Gap(16f);
+            settingsHandler.Draw(list, canvas.width);
+
+            list.End();
+
+            void SetUpFertilityRow()
+            {
+                UIContainter row = settingsHandler.RegisterNewRow("FertilityRow");
+                row.AddLabel(() => "TilledSoil.FertilityLabel".Translate(settings.fertility.ToString()), relative: columnWidth, name: "FertilityLabel");
+                UIIntEntry<TilledSoilSettings> entry = row.AddIntEntry(settings, AccessTools.FieldRefAccess<TilledSoilSettings, int>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.fertility))), 120, 0, 1000, relative: columnWidth, name: "FertilityAmountEntry");
+                settingsHandler.AddResetable(entry);
+                row.AddLabel("TilledSoil.FertilityExplanation".Translate, name: "FertilityExplanation");
+            }
+
+            void SetUpTillAffordanceRow()
+            {
+                UIContainter row = settingsHandler.RegisterNewRow("TillAffordanceRow");
+                row.AddLabel("TilledSoil.AffordanceTill".Translate, relative: columnWidth, name: "TillAffordanceLabel");
+                UIContainter innerContainer = row.AddContainer(columnWidth);
+                innerContainer.AddSpace();
+                UIButtonTextResetable<TilledSoilSettings, string> button = innerContainer.AddButtonTextResetable(settings, AccessTools.FieldRefAccess<TilledSoilSettings, string>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.canTillOn))), "GrowSoil", () => DefDatabase<TerrainAffordanceDef>.GetNamed(settings.canTillOn).label, TillAffordanceOnClick, name: "TillAffordanceButton", relative: 0.6f);
+                settingsHandler.AddResetable(button);
+                row.AddLabel(TillAffordanceExplanationKey, name: "TillAffordanceExpalation");
+            }
+
+            void SetUpDirtAffordanceRow()
+            {
+                UIContainter row = settingsHandler.RegisterNewRow("DirtAffordanceRow");
+                row.AddLabel("TilledSoil.AffordanceDirt".Translate, relative: columnWidth, name: "DirtAffordanceLabel");
+                UIContainter innerContainer = row.AddContainer(columnWidth);
+                innerContainer.AddSpace();
+                UIButtonTextResetable<TilledSoilSettings, string> button = innerContainer.AddButtonTextResetable(settings, AccessTools.FieldRefAccess<TilledSoilSettings, string>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.canTurnIntoDirt))), "SmoothableStone", () => DefDatabase<TerrainAffordanceDef>.GetNamed(settings.canTurnIntoDirt).label, DirtAffordanceOnClick, name: "DirtAffordanceButton", relative: 0.6f);
+                settingsHandler.AddResetable(button);
+                row.AddLabel(DirtAffordanceExplanationKey, name: "DirtAffordanceExplanation");
+            }
+
+            void SetUpSoilRequiredRow()
+            {
+                UIContainter row = settingsHandler.RegisterNewRow("SoilRequiredRow");
+                row.AddLabel("TilledSoil.RequireCost".Translate, relative: columnWidth, name: "SoilRequiredLabel");
+                UICheckbox<TilledSoilSettings> checkbox = row.AddCheckbox(settings, AccessTools.FieldRefAccess<TilledSoilSettings, bool>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.requireCost))), true, relative: columnWidth, name: "SoilRequiredCheckbox");
+                settingsHandler.AddResetable(checkbox);
+                row.AddLabel("TilledSoil.RequireCostExplanation".Translate, name: "SoilRequiredExplanation");
+            }
+
+            void SetUpSoilCostRow()
+            {
+                UIContainter row = settingsHandler.RegisterNewRow("SoilCostRow");
+                row.AddLabel("TilledSoil.DirtCost".Translate, relative: columnWidth, name: "SoilCostLabel");
+                UIIntEntry<TilledSoilSettings> entry = row.AddIntEntry(settings, AccessTools.FieldRefAccess<TilledSoilSettings, int>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.soilCost))), 1, 1, 100, relative: columnWidth, name: "SoilCostEntry");
+                settingsHandler.AddResetable(entry);
+                row.AddLabel("TilledSoil.DirtCostExplanation".Translate, name: "SoilCostExplanation");
+                row.HideWhen(() => !settings.requireCost);
+            }
+
+            void SetUpWorkAmountRow()
+            {
+                UIContainter row = settingsHandler.RegisterNewRow("WorkAmountRow");
+                row.AddLabel("TilledSoil.WorkAmount".Translate, relative: columnWidth, name: "WorkAmountLabel");
+                UIIntEntry<TilledSoilSettings> entry = row.AddIntEntry(settings, AccessTools.FieldRefAccess<TilledSoilSettings, int>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.workAmount))), 500, 1, 10000, relative: columnWidth, name: "WorkAmountEntry");
+                settingsHandler.AddResetable(entry);
+                row.AddLabel("TilledSoil.WorkAmountExplanation".Translate, name: "WorkAmountExplanation");
+                row.HideWhen(() => !settings.requireCost);
+            }
+
+            void SetUpResetButton()
+            {
+                UIContainter row = settingsHandler.RegisterNewRow("ResetButtonRow");
+                row.AddSpace(relative: columnWidth);
+                row.AddResetButton(settingsHandler, relative: columnWidth, name: "ResetButton");
+                row.AddSpace(relative: columnWidth);
+            }
+        }
+
+        private static TaggedString TillAffordanceExplanationKey()
+        {
             if (settings.canTillOn == "Light")
             {
-                list.Label("TilledSoil.AffordanceTillLight".Translate());
+                return "TilledSoil.AffordanceTillLight".Translate();
             }
             else if (settings.canTillOn == "GrowSoil")
             {
-                list.Label("TilledSoil.AffordanceTillGrowable".Translate());
+                return "TilledSoil.AffordanceTillGrowable".Translate();
             }
             else
             {
                 Log.Error("Unexpected value of canTillOn: " + settings.canTillOn);
+                return "Error";
             }
-            list.Gap(gap2);
+        }
+
+        public static List<TerrainAffordanceDef> tillList;
+        private static void TillAffordanceOnClick()
+        {
+            List<FloatMenuOption> options = [];
+            foreach (TerrainAffordanceDef terrain in tillList)
+            {
+                options.Add(new FloatMenuOption(terrain.label, delegate
+                {
+                    settings.canTillOn = terrain.defName;
+                }));
+            }
+            Find.WindowStack.Add(new FloatMenu(options));
+        }
+
+        private static TaggedString DirtAffordanceExplanationKey()
+        {
             if (settings.canTurnIntoDirt == "Light")
             {
-                list.Label("TilledSoil.AffordanceDirtLight".Translate());
+                return "TilledSoil.AffordanceDirtLight".Translate();
+
             }
             else if (settings.canTurnIntoDirt == "SmoothableStone")
             {
-                list.Label("TilledSoil.AffordanceDirtSmoothable".Translate());
+                return "TilledSoil.AffordanceDirtSmoothable".Translate();
             }
             else
             {
                 Log.Error("Unexpected value of canTurnIntoDirt: " + settings.canTurnIntoDirt);
+                return "Error";
             }
-            list.Gap(gap3);
-            list.Label("TilledSoil.RequireCostExplanation".Translate());
-            list.Gap();
-            if (settings.requireCost)
+        }
+
+        public static List<TerrainAffordanceDef> dirtList;
+        private static void DirtAffordanceOnClick()
+        {
+            List<FloatMenuOption> options = [];
+            foreach (TerrainAffordanceDef terrain in dirtList)
             {
-                list.Label("TilledSoil.DirtCostExplanation".Translate());
-                list.Gap();
+                options.Add(new FloatMenuOption(terrain.label, delegate
+                {
+                    settings.canTurnIntoDirt = terrain.defName;
+                }));
             }
-            list.Label("TilledSoil.WorkAmountExplanation".Translate());
-            list.Gap();
-            list.End();
+            Find.WindowStack.Add(new FloatMenu(options));
         }
     }
 
@@ -235,6 +261,8 @@ namespace TilledSoil
             {
                 TilledSoilSettings.DirtBag = DefDatabase<ThingDef>.GetNamed("DirtBag");
             }
+            TilledSoilMod.tillList = [TerrainAffordanceDefOf.Light, DefOfTS.GrowSoil,];
+            TilledSoilMod.dirtList = [TerrainAffordanceDefOf.Light, TerrainAffordanceDefOf.SmoothableStone,];
             TilledSoilMod.settings.UpdateSettings();
         }
     }
