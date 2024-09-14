@@ -20,6 +20,7 @@ namespace TilledSoil
         {
             TilledSoilSettings.TilledSoil = TerrainDef.Named("TilledSoil");
             TilledSoilSettings.TilledSoil.SetStatBaseValue(StatDefOf.WorkToBuild, TilledSoilMod.settings.workAmount);
+            TilledSoilMod.cachedWorkAmount = TilledSoilMod.settings.workAmount;
         }
     }
 }

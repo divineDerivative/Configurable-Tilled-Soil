@@ -53,6 +53,11 @@ namespace TilledSoil
             {
                 TerrainDefOf.Soil.terrainAffordanceNeeded = DefDatabase<TerrainAffordanceDef>.GetNamed(canTurnIntoDirt);
             }
+            if (Current.ProgramState == ProgramState.Entry)
+            {
+                TilledSoilMod.cachedSoilRequirement = requireCost;
+                TilledSoilMod.cachedSoilCost = soilCost;
+            }
         }
     }
 
@@ -109,7 +114,7 @@ namespace TilledSoil
                 settingsHandler.Initialize();
             }
 
-            settingsHandler.Draw(list, canvas.width);
+            settingsHandler.Draw(list);
 
             list.End();
 
@@ -146,11 +151,12 @@ namespace TilledSoil
 
             void SetUpSoilRequiredRow()
             {
+                cachedSoilRequirement = settings.requireCost;
                 UIContainter row = settingsHandler.RegisterNewRow("SoilRequiredRow");
                 row.AddLabel("TilledSoil.RequireCost".Translate, relative: columnWidth, name: "SoilRequiredLabel");
                 UICheckbox<TilledSoilSettings> checkbox = row.AddCheckbox(settings, AccessTools.FieldRefAccess<TilledSoilSettings, bool>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.requireCost))), true, relative: columnWidth, name: "SoilRequiredCheckbox");
                 settingsHandler.AddResetable(checkbox);
-                row.AddLabel("TilledSoil.RequireCostExplanation".Translate, name: "SoilRequiredExplanation");
+                row.AddLabel(RequireCostExplanationKey, name: "SoilRequiredExplanation");
             }
 
             void SetUpSoilCostRow()
@@ -159,7 +165,7 @@ namespace TilledSoil
                 row.AddLabel("TilledSoil.DirtCost".Translate, relative: columnWidth, name: "SoilCostLabel");
                 UIIntEntry<TilledSoilSettings> entry = row.AddIntEntry(settings, AccessTools.FieldRefAccess<TilledSoilSettings, int>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.soilCost))), 1, 1, 100, relative: columnWidth, name: "SoilCostEntry");
                 settingsHandler.AddResetable(entry);
-                row.AddLabel("TilledSoil.DirtCostExplanation".Translate, name: "SoilCostExplanation");
+                row.AddLabel(DirtCostExplanationKey, name: "SoilCostExplanation");
                 row.HideWhen(() => !settings.requireCost);
             }
 
@@ -169,8 +175,7 @@ namespace TilledSoil
                 row.AddLabel("TilledSoil.WorkAmount".Translate, relative: columnWidth, name: "WorkAmountLabel");
                 UIIntEntry<TilledSoilSettings> entry = row.AddIntEntry(settings, AccessTools.FieldRefAccess<TilledSoilSettings, int>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.workAmount))), 500, 1, 10000, relative: columnWidth, name: "WorkAmountEntry");
                 settingsHandler.AddResetable(entry);
-                row.AddLabel("TilledSoil.WorkAmountExplanation".Translate, name: "WorkAmountExplanation");
-                row.HideWhen(() => !settings.requireCost);
+                row.AddLabel(WorkAmountExplanationKey, name: "WorkAmountExplanation");
             }
 
             void SetUpResetButton()
@@ -182,7 +187,7 @@ namespace TilledSoil
             }
         }
 
-        private static TaggedString TillAffordanceExplanationKey()
+        static TaggedString TillAffordanceExplanationKey()
         {
             if (settings.canTillOn == "Light")
             {
@@ -199,8 +204,8 @@ namespace TilledSoil
             }
         }
 
-        public static List<TerrainAffordanceDef> tillList;
-        private static void TillAffordanceOnClick()
+        internal static List<TerrainAffordanceDef> tillList;
+        static void TillAffordanceOnClick()
         {
             List<FloatMenuOption> options = [];
             foreach (TerrainAffordanceDef terrain in tillList)
@@ -213,7 +218,7 @@ namespace TilledSoil
             Find.WindowStack.Add(new FloatMenu(options));
         }
 
-        private static TaggedString DirtAffordanceExplanationKey()
+        static TaggedString DirtAffordanceExplanationKey()
         {
             if (settings.canTurnIntoDirt == "Light")
             {
@@ -231,8 +236,8 @@ namespace TilledSoil
             }
         }
 
-        public static List<TerrainAffordanceDef> dirtList;
-        private static void DirtAffordanceOnClick()
+        internal static List<TerrainAffordanceDef> dirtList;
+        static void DirtAffordanceOnClick()
         {
             List<FloatMenuOption> options = [];
             foreach (TerrainAffordanceDef terrain in dirtList)
@@ -243,6 +248,40 @@ namespace TilledSoil
                 }));
             }
             Find.WindowStack.Add(new FloatMenu(options));
+        }
+
+        internal static bool cachedSoilRequirement;
+        private static TaggedString RequireCostExplanationKey()
+        {
+            TaggedString result = "TilledSoil.RequireCostExplanation".Translate();
+            if (Current.ProgramState == ProgramState.Playing && cachedSoilRequirement != settings.requireCost)
+            {
+                result += "TilledSoil.ReloadRequired".Translate();
+            }
+            return result;
+        }
+
+        internal static int cachedSoilCost;
+        static TaggedString DirtCostExplanationKey()
+        {
+            TaggedString result = "TilledSoil.DirtCostExplanation".Translate();
+            if (Current.ProgramState == ProgramState.Playing && cachedSoilCost != settings.soilCost)
+            {
+                result += "TilledSoil.ReloadRequired".Translate();
+            }
+            return result;
+        }
+
+        internal static int cachedWorkAmount;
+
+        static TaggedString WorkAmountExplanationKey()
+        {
+            TaggedString result = "TilledSoil.WorkAmountExplanation".Translate();
+            if (settings.workAmount != cachedWorkAmount)
+            {
+                result += "TilledSoil.RestartRequired".Translate();
+            }
+            return result;
         }
     }
 

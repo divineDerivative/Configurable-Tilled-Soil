@@ -10,9 +10,11 @@
 	<TilledSoil.AffordanceDirtLight>Can place dirt anywhere a normal floor can be placed.</TilledSoil.AffordanceDirtLight>
 	<TilledSoil.AffordanceDirtSmoothable>Can only place dirt on rough stone.</TilledSoil.AffordanceDirtSmoothable>
 	<TilledSoil.RequireCost>Tilling requires bags of dirt</TilledSoil.RequireCost>
-	<TilledSoil.RequireCostExplanation>Does the Tilled Soil require dirt to construct? Restart Required.</TilledSoil.RequireCostExplanation>
+	<TilledSoil.RequireCostExplanation>Does the Tilled Soil require dirt to construct?</TilledSoil.RequireCostExplanation>
 	<TilledSoil.DirtCost>Construction cost in dirt</TilledSoil.DirtCost>
 	<TilledSoil.DirtCostExplanation>How much dirt is required for one tile.</TilledSoil.DirtCostExplanation>
 	<TilledSoil.WorkAmount>Work amount required</TilledSoil.WorkAmount>
-	<TilledSoil.WorkAmountExplanation>How much work is required to construct the soil. Concrete: 100, Flagstone: 500. Game restart required.</TilledSoil.WorkAmountExplanation>
+	<TilledSoil.WorkAmountExplanation>How much work is required to construct the soil. Concrete: 100, Flagstone: 500.</TilledSoil.WorkAmountExplanation>
+	<TilledSoil.ReloadRequired> &lt;b&gt;Reload save for change to apply.&lt;/b&gt;</TilledSoil.ReloadRequired>
+	<TilledSoil.RestartRequired> &lt;b&gt;Restart game for change to apply.&lt;/b&gt;</TilledSoil.RestartRequired>
 </LanguageData>
