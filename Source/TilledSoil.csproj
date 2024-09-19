@@ -71,8 +71,8 @@
     <Compile Include="WorkGiver_GatherDirtBags.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DivineFramework">
-      <HintPath>..\..\Settings Stuff\Assemblies\DivineFramework.dll</HintPath>
+    <Reference Include="0DivineFramework">
+      <HintPath>..\..\Settings Stuff\Assemblies\0DivineFramework.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

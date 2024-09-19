@@ -123,7 +123,7 @@ namespace TilledSoil
                 UIContainter row = settingsHandler.RegisterNewRow("FertilityRow");
                 row.AddLabel(() => "TilledSoil.FertilityLabel".Translate(settings.fertility.ToString()), relative: columnWidth, name: "FertilityLabel");
                 UIIntEntry<TilledSoilSettings> entry = row.AddIntEntry(settings, AccessTools.FieldRefAccess<TilledSoilSettings, int>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.fertility))), 120, 0, 1000, relative: columnWidth, name: "FertilityAmountEntry");
-                settingsHandler.AddResetable(entry);
+                settingsHandler.RegisterResetable(entry);
                 row.AddLabel("TilledSoil.FertilityExplanation".Translate, name: "FertilityExplanation");
             }
 
@@ -134,7 +134,7 @@ namespace TilledSoil
                 UIContainter innerContainer = row.AddContainer(columnWidth);
                 innerContainer.AddSpace();
                 UIButtonTextResetable<TilledSoilSettings, string> button = innerContainer.AddButtonTextResetable(settings, AccessTools.FieldRefAccess<TilledSoilSettings, string>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.canTillOn))), "GrowSoil", () => DefDatabase<TerrainAffordanceDef>.GetNamed(settings.canTillOn).label, TillAffordanceOnClick, name: "TillAffordanceButton", relative: 0.6f);
-                settingsHandler.AddResetable(button);
+                settingsHandler.RegisterResetable(button);
                 row.AddLabel(TillAffordanceExplanationKey, name: "TillAffordanceExpalation");
             }
 
@@ -145,7 +145,7 @@ namespace TilledSoil
                 UIContainter innerContainer = row.AddContainer(columnWidth);
                 innerContainer.AddSpace();
                 UIButtonTextResetable<TilledSoilSettings, string> button = innerContainer.AddButtonTextResetable(settings, AccessTools.FieldRefAccess<TilledSoilSettings, string>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.canTurnIntoDirt))), "SmoothableStone", () => DefDatabase<TerrainAffordanceDef>.GetNamed(settings.canTurnIntoDirt).label, DirtAffordanceOnClick, name: "DirtAffordanceButton", relative: 0.6f);
-                settingsHandler.AddResetable(button);
+                settingsHandler.RegisterResetable(button);
                 row.AddLabel(DirtAffordanceExplanationKey, name: "DirtAffordanceExplanation");
             }
 
@@ -155,7 +155,7 @@ namespace TilledSoil
                 UIContainter row = settingsHandler.RegisterNewRow("SoilRequiredRow");
                 row.AddLabel("TilledSoil.RequireCost".Translate, relative: columnWidth, name: "SoilRequiredLabel");
                 UICheckbox<TilledSoilSettings> checkbox = row.AddCheckbox(settings, AccessTools.FieldRefAccess<TilledSoilSettings, bool>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.requireCost))), true, relative: columnWidth, name: "SoilRequiredCheckbox");
-                settingsHandler.AddResetable(checkbox);
+                settingsHandler.RegisterResetable(checkbox);
                 row.AddLabel(RequireCostExplanationKey, name: "SoilRequiredExplanation");
             }
 
@@ -164,7 +164,7 @@ namespace TilledSoil
                 UIContainter row = settingsHandler.RegisterNewRow("SoilCostRow");
                 row.AddLabel("TilledSoil.DirtCost".Translate, relative: columnWidth, name: "SoilCostLabel");
                 UIIntEntry<TilledSoilSettings> entry = row.AddIntEntry(settings, AccessTools.FieldRefAccess<TilledSoilSettings, int>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.soilCost))), 1, 1, 100, relative: columnWidth, name: "SoilCostEntry");
-                settingsHandler.AddResetable(entry);
+                settingsHandler.RegisterResetable(entry);
                 row.AddLabel(DirtCostExplanationKey, name: "SoilCostExplanation");
                 row.HideWhen(() => !settings.requireCost);
             }
@@ -174,7 +174,7 @@ namespace TilledSoil
                 UIContainter row = settingsHandler.RegisterNewRow("WorkAmountRow");
                 row.AddLabel("TilledSoil.WorkAmount".Translate, relative: columnWidth, name: "WorkAmountLabel");
                 UIIntEntry<TilledSoilSettings> entry = row.AddIntEntry(settings, AccessTools.FieldRefAccess<TilledSoilSettings, int>(AccessTools.Field(typeof(TilledSoilSettings), nameof(settings.workAmount))), 500, 1, 10000, relative: columnWidth, name: "WorkAmountEntry");
-                settingsHandler.AddResetable(entry);
+                settingsHandler.RegisterResetable(entry);
                 row.AddLabel(WorkAmountExplanationKey, name: "WorkAmountExplanation");
             }
 
@@ -303,6 +303,8 @@ namespace TilledSoil
             TilledSoilMod.tillList = [TerrainAffordanceDefOf.Light, DefOfTS.GrowSoil,];
             TilledSoilMod.dirtList = [TerrainAffordanceDefOf.Light, TerrainAffordanceDefOf.SmoothableStone,];
             TilledSoilMod.settings.UpdateSettings();
+
+            VersionCheck.NeededVersion(new("0.1"), "TilledSoil.ModTitle".Translate());
         }
     }
 }
