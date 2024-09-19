@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <DefineConstants>v1_5</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
   <Choose>
     <When Condition="'$(Configuration)|$(Platform)' == '1.4|AnyCPU'">
       <ItemGroup>
