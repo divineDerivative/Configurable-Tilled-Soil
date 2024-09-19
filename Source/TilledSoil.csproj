@@ -66,8 +66,10 @@
     <Compile Include="Designator_GatherDirtBags.cs" />
     <Compile Include="Harmony.cs" />
     <Compile Include="JobDriver_GatherDirtBags.cs" />
+    <Compile Include="OnStartup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="TilledSoilMod.cs" />
+    <Compile Include="TilledSoilSettings.cs" />
     <Compile Include="WorkGiver_GatherDirtBags.cs" />
   </ItemGroup>
   <ItemGroup>
