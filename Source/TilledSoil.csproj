@@ -17,9 +17,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '1.4|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>..\1.4\Assemblies\</OutputPath>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <DebugType>portable</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>latest</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <DefineConstants>v1_4</DefineConstants>
@@ -27,9 +27,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '1.5|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>..\1.5\Assemblies\</OutputPath>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <DebugType>portable</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>latest</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <DefineConstants>v1_5</DefineConstants>
@@ -77,12 +77,15 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="0DivineFramework">
-      <HintPath>..\..\Settings Stuff\Assemblies\0DivineFramework.dll</HintPath>
+      <HintPath>..\..\DivineFramework\Assemblies\0DivineFramework.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>robocopy "C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Configurable Tilled Soil" "C:\RimWorld_Debug\Mods\Configurable Tilled Soil" /r:1 /s /xo /xd Source .vs .git /xf *.sln .gitattributes .gitignore *.md || set errorlist=0</PostBuildEvent>
+    <PostBuildEvent>call "$(SolutionDir)..\DivineFramework\PostBuild.bat" "Configurable Tilled Soil"</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="ForcePostBuild" AfterTargets="Build">
+    <Touch Files="$(IntermediateOutputPath)TouchMe.txt" />
+  </Target>
 </Project>
