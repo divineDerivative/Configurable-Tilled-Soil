@@ -1,5 +1,4 @@
-﻿using DivineFramework;
-using RimWorld;
+﻿using RimWorld;
 using Verse;
 
 namespace TilledSoil
@@ -22,8 +21,6 @@ namespace TilledSoil
             TilledSoilSettings.tillList = [TerrainAffordanceDefOf.Light, DefOfTS.GrowSoil,];
             TilledSoilSettings.dirtList = [TerrainAffordanceDefOf.Light, TerrainAffordanceDefOf.SmoothableStone,];
             TilledSoilMod.settings.UpdateSettings();
-
-            VersionCheck.NeededVersion(new("0.1"), "TilledSoil.ModTitle".Translate());
         }
     }
 }
