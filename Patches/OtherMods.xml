@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
 	<!--Make packed dirt use dirt bags, unless Soil Relocation is active-->
-	<Operation Class="PatchOperationFindMod">
+	<!--Now handled with mod setting-->
+	<!--<Operation Class="PatchOperationFindMod">
 		<mods>
 			<li>Soil Relocation Framework (Continued)</li>
 			<li>Soil Relocation Framework</li>
@@ -19,5 +20,5 @@
 				</value>
 			</match>
 		</nomatch>
-	</Operation>
+	</Operation>-->
 </Patch>

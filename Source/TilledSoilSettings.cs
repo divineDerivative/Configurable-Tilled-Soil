@@ -18,6 +18,12 @@ namespace TilledSoil
         internal static ThingDef DirtBag;
         internal static TerrainDef TilledSoil;
         internal static bool SoilRelocationActive;
+        internal static bool VFEActive = true;
+        internal static TerrainDef PackedDirt;
+
+        //Mod specific settings
+        public bool packedDirtRequire;
+        public int packedDirtCost;
 
         public float Fertility => fertility / 100f;
 
@@ -29,6 +35,9 @@ namespace TilledSoil
             Scribe_Values.Look(ref requireCost, "RequireCost", defaultValue: true, forceSave: true);
             Scribe_Values.Look(ref soilCost, "SoilCost", 1);
             Scribe_Values.Look(ref workAmount, "WorkAmount", 500);
+
+            Scribe_Values.Look(ref packedDirtRequire, "PackedDirt", true);
+            Scribe_Values.Look(ref packedDirtCost, "PackedDirtCost", 1);
             base.ExposeData();
         }
 
@@ -52,17 +61,29 @@ namespace TilledSoil
             {
                 TerrainDefOf.Soil.terrainAffordanceNeeded = DefDatabase<TerrainAffordanceDef>.GetNamed(canTurnIntoDirt);
             }
+            if (VFEActive && packedDirtRequire)
+            {
+                PackedDirt.costList =
+                [
+                    new ThingDefCountClass(DirtBag, packedDirtCost)
+                ];
+            }
+            else
+            {
+                PackedDirt.costList = [];
+            }
             if (Current.ProgramState == ProgramState.Entry)
             {
                 cachedSoilRequirement = requireCost;
                 cachedSoilCost = soilCost;
+                cachedPackedDirtCost = packedDirtCost;
             }
         }
 
         float columnWidth = (1f / 3f) - 0.1f;
         internal void SetUpHandler(SettingsHandler<TilledSoilSettings> handler)
         {
-            handler.verticalSpacing = 12f;
+            handler.verticalSpacing = 10f;
             //Fertility
             SetUpFertilityRow(handler);
 
@@ -220,15 +241,16 @@ namespace TilledSoil
                 .MinMax(1, 100)
                 .WithIncrementButtons()
                 .RegisterResetable(handler, 1), name: "SoilCostEntry");
-            row.AddLabel(DirtCostExplanationKey, name: "SoilCostExplanation");
+            row.AddLabel(() => DirtCostExplanationKey(cachedSoilCost, soilCost), name: "SoilCostExplanation");
             row.HideWhen(() => !requireCost);
         }
 
         internal static int cachedSoilCost;
-        TaggedString DirtCostExplanationKey()
+        internal static int cachedPackedDirtCost;
+        TaggedString DirtCostExplanationKey(int cachedCost, int currentCost)
         {
             TaggedString result = "TilledSoil.DirtCostExplanation".Translate();
-            if (Current.ProgramState == ProgramState.Playing && cachedSoilCost != soilCost)
+            if (Current.ProgramState == ProgramState.Playing && cachedCost != currentCost)
             {
                 result += "TilledSoil.ReloadRequired".Translate();
             }
@@ -248,6 +270,7 @@ namespace TilledSoil
         }
 
         internal static int cachedWorkAmount;
+
         TaggedString WorkAmountExplanationKey()
         {
             TaggedString result = "TilledSoil.WorkAmountExplanation".Translate();
@@ -264,6 +287,37 @@ namespace TilledSoil
             row.AddSpace(relative: columnWidth);
             row.AddResetButton(handler, relative: columnWidth, name: "ResetButton");
             row.AddSpace();
+        }
+
+        internal void SetUpIntegrationHandler(SettingsHandler<TilledSoilSettings> handler)
+        {
+            handler.verticalSpacing = 10f;
+            var titleRow = handler.RegisterNewRow();
+            titleRow.AddSpace();
+            Text.Font = GameFont.Medium;
+            titleRow.AddHeader(() => "Mod Integration", absolute: Text.CalcSize("Mod Integration").x);
+            Text.Font = GameFont.Small;
+            titleRow.AddSpace();
+            handler.AddLine();
+
+            if (VFEActive)
+            {
+                var dirtRow = handler.RegisterNewRow("PackedDirt");
+                dirtRow.AddLabel(() => "Packed dirt uses dirt bags", relative: columnWidth);
+                dirtRow.AddElement(NewElement.Checkbox(relative: columnWidth)
+                    .WithReference(this, nameof(packedDirtRequire), packedDirtRequire)
+                    .Alignment(UnityEngine.TextAlignment.Right));
+                dirtRow.AddLabel(() => "Packed dirt from VFE - Architect requires dirt to construct");
+                var costRow = handler.RegisterNewRow("CostAmount");
+                costRow.AddLabel("TilledSoil.DirtCost".Translate, relative: columnWidth, name: "SoilCostLabel");
+                costRow.AddElement(NewElement.InputLine<int>(relative: columnWidth)
+                    .WithReference(this, nameof(packedDirtCost), packedDirtCost)
+                    .MinMax(1, 100)
+                    .WithIncrementButtons()
+                    .RegisterResetable(handler, 1), name: "SoilCostEntry");
+                costRow.AddLabel(() => DirtCostExplanationKey(cachedPackedDirtCost, packedDirtCost), name: "SoilCostExplanation");
+                costRow.HideWhen(() => !packedDirtRequire);
+            }
         }
     }
 }

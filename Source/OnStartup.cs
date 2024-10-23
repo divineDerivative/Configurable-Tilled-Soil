@@ -21,6 +21,11 @@ namespace TilledSoil
             TilledSoilSettings.tillList = [TerrainAffordanceDefOf.Light, DefOfTS.GrowSoil,];
             TilledSoilSettings.dirtList = [TerrainAffordanceDefOf.Light, TerrainAffordanceDefOf.SmoothableStone,];
             TilledSoilMod.settings.UpdateSettings();
+
+            if (ModsConfig.IsActive("VanillaExpanded.VFEArchitect"))
+            {
+                TilledSoilSettings.VFEActive = true;
+            }
         }
     }
 }

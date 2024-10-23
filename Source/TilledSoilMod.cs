@@ -15,7 +15,7 @@ namespace TilledSoil
             settings = GetSettings<TilledSoilSettings>();
             Harmony harmony = new("divineDerivative.tilledsoil");
             harmony.PatchAll();
-            ModManagement.RegisterMod("TilledSoil.ModTitle", typeof(TilledSoilMod).Assembly.GetName().Name, new("0.2.0.3"), "<color=#567b2a>[TilledSoil]</color>");
+            ModManagement.RegisterMod("TilledSoil.ModTitle", typeof(TilledSoilMod).Assembly.GetName().Name, new("0.2.1.0"), "<color=#567b2a>[TilledSoil]</color>");
         }
 
         public override void WriteSettings()
@@ -27,6 +27,7 @@ namespace TilledSoil
         public override string SettingsCategory() => "TilledSoil.ModTitle".Translate();
 
         internal SettingsHandler<TilledSoilSettings> settingsHandler = new();
+        internal SettingsHandler<TilledSoilSettings> integrationHandler = new();
 
         public override void DoSettingsWindowContents(Rect canvas)
         {
@@ -37,8 +38,17 @@ namespace TilledSoil
                 settingsHandler.width = canvas.width;
                 settings.SetUpHandler(settingsHandler);
             }
-
             settingsHandler.Draw(list);
+
+            if (TilledSoilSettings.VFEActive)
+            {
+                if (!integrationHandler.Initialized)
+                {
+                    integrationHandler.width = canvas.width;
+                    settings.SetUpIntegrationHandler(integrationHandler);
+                }
+                integrationHandler.Draw(list);
+            }
 
             list.End();
         }
