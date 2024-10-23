@@ -28,4 +28,14 @@ namespace TilledSoil
             }
         }
     }
+
+    [HarmonyPatch(typeof(Root_Play), nameof(Root_Play.Start))]
+    public static class Root_Play_Start
+    {
+        public static void Prefix()
+        {
+            TilledSoilSettings.cachedSoilCost = TilledSoilMod.settings.soilCost;
+            TilledSoilSettings.cachedPackedDirtCost = TilledSoilMod.settings.packedDirtCost;
+        }
+    }
 }
