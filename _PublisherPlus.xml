@@ -2,6 +2,8 @@
 <Configuration>
   <Excluded>
     <exclude>.git</exclude>
+    <exclude>.vs</exclude>
     <exclude>Source</exclude>
+    <exclude>TilledSoil.sln</exclude>
   </Excluded>
 </Configuration>
