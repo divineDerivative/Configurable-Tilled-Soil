@@ -1,5 +1,4 @@
 ﻿using DivineFramework;
-using HarmonyLib;
 using RimWorld;
 using System.Collections.Generic;
 using Verse;
@@ -14,6 +13,7 @@ namespace TilledSoil
         public bool requireCost = true;
         public int soilCost = 1;
         public int workAmount = 500;
+        public bool tillingDestroysPlants;
 
         internal static ThingDef DirtBag;
         internal static TerrainDef TilledSoil;
@@ -35,6 +35,7 @@ namespace TilledSoil
             Scribe_Values.Look(ref requireCost, "RequireCost", defaultValue: true, forceSave: true);
             Scribe_Values.Look(ref soilCost, "SoilCost", 1);
             Scribe_Values.Look(ref workAmount, "WorkAmount", 500);
+            Scribe_Values.Look(ref tillingDestroysPlants, "TillingDestroysPlants", true);
 
             Scribe_Values.Look(ref packedDirtRequire, "PackedDirt", true);
             Scribe_Values.Look(ref packedDirtCost, "PackedDirtCost", 1);
@@ -93,6 +94,9 @@ namespace TilledSoil
             //Affordance for dirt
             SetUpDirtAffordanceRow(handler);
 
+            //Tilling destroys plants
+            SetUpTillingDestroysRow(handler);
+
             //Tilled soil cost required
             SetUpSoilRequiredRow(handler);
 
@@ -106,6 +110,17 @@ namespace TilledSoil
             SetUpResetButton(handler);
 
             handler.Initialize();
+        }
+
+        void SetUpTillingDestroysRow(SettingsHandler<TilledSoilSettings> handler)
+        {
+            UIContainer row = handler.RegisterNewRow("TillingDestroysRow");
+            row.AddLabel("TilledSoil.TillingDestroys".Translate, relative: columnWidth);
+            row.AddElement(NewElement.Checkbox(relative: columnWidth)
+                .WithReference(this, nameof(tillingDestroysPlants), tillingDestroysPlants)
+                .RegisterResetable(handler, true)
+                .Alignment(UnityEngine.TextAlignment.Right), "TillingDestroysCheckbox");
+            row.AddLabel("TilledSoil.TillingDestroysExplanation".Translate);
         }
 
         void SetUpFertilityRow(SettingsHandler<TilledSoilSettings> handler)
@@ -218,7 +233,7 @@ namespace TilledSoil
             row.AddElement(NewElement.Checkbox(relative: columnWidth)
                 .WithReference(this, nameof(requireCost), requireCost)
                 .RegisterResetable(handler, true)
-                .Alignment(UnityEngine.TextAlignment.Right), name: "SoilRequiredLabel");
+                .Alignment(UnityEngine.TextAlignment.Right), name: "SoilRequiredCheckbox");
             row.AddLabel(RequireCostExplanationKey, name: "SoilRequiredExplanation");
         }
 

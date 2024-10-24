@@ -9,6 +9,8 @@
 	<TilledSoil.AffordanceDirt>Terrain affordance for dirt</TilledSoil.AffordanceDirt>
 	<TilledSoil.AffordanceDirtLight>Can place dirt anywhere a normal floor can be placed.</TilledSoil.AffordanceDirtLight>
 	<TilledSoil.AffordanceDirtSmoothable>Can only place dirt on rough stone.</TilledSoil.AffordanceDirtSmoothable>
+	<TilledSoil.TillingDestroys>Tilling destroys plants</TilledSoil.TillingDestroys>
+	<TilledSoil.TillingDestroysExplanation>Plants will be removed when tilling is finished. This includes crops!</TilledSoil.TillingDestroysExplanation>
 	<TilledSoil.RequireCost>Tilling requires bags of dirt</TilledSoil.RequireCost>
 	<TilledSoil.RequireCostExplanation>Does the Tilled Soil require dirt to construct?</TilledSoil.RequireCostExplanation>
 	<TilledSoil.DirtCost>Construction cost in dirt</TilledSoil.DirtCost>

@@ -38,4 +38,16 @@ namespace TilledSoil
             TilledSoilSettings.cachedPackedDirtCost = TilledSoilMod.settings.packedDirtCost;
         }
     }
+
+    [HarmonyPatch(typeof(TerrainGrid), nameof(TerrainGrid.SetTerrain))]
+    public static class TerrainGrid_SetTerrain
+    {
+        public static void Postfix(IntVec3 c, TerrainDef newTerr, Map ___map)
+        {
+            if (newTerr == TilledSoilSettings.TilledSoil && TilledSoilMod.settings.tillingDestroysPlants)
+            {
+                Utilities.DestroyPlantsAt(c, ___map);
+            }
+        }
+    }
 }
