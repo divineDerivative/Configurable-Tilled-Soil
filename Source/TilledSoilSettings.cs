@@ -18,7 +18,7 @@ namespace TilledSoil
         internal static ThingDef DirtBag;
         internal static TerrainDef TilledSoil;
         internal static bool SoilRelocationActive;
-        internal static bool VFEActive = true;
+        internal static bool VFEActive;
         internal static TerrainDef PackedDirt;
 
         //Mod specific settings
@@ -62,16 +62,19 @@ namespace TilledSoil
             {
                 TerrainDefOf.Soil.terrainAffordanceNeeded = DefDatabase<TerrainAffordanceDef>.GetNamed(canTurnIntoDirt);
             }
-            if (VFEActive && packedDirtRequire)
+            if (VFEActive)
             {
-                PackedDirt.costList =
-                [
-                    new ThingDefCountClass(DirtBag, packedDirtCost)
-                ];
-            }
-            else
-            {
-                PackedDirt.costList = [];
+                if (packedDirtRequire)
+                {
+                    PackedDirt.costList =
+                    [
+                        new ThingDefCountClass(DirtBag, packedDirtCost)
+                    ];
+                }
+                else
+                {
+                    PackedDirt.costList = [];
+                }
             }
             if (Current.ProgramState == ProgramState.Entry)
             {
