@@ -48,6 +48,8 @@ namespace TilledSoil
             Thing thing = ThingMaker.MakeThing(TilledSoilSettings.DirtBag);
             GenPlace.TryPlaceThing(thing, TargetLocA, pawn.Map, ThingPlaceMode.Near);
             Map.snowGrid.SetDepth(TargetLocA, 0f);
+            //Get rid of plants
+            Utilities.DestroyPlantsAt(c, Map);
         }
     }
 }

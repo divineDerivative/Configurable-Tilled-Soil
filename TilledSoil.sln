@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TilledSoil", "Source\TilledSoil.csproj", "{CB743C4A-B703-4729-ACB8-2455E195FBCF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{31C29B43-FF75-48AF-AA79-C65D3B0DFEBF}"
+	ProjectSection(SolutionItems) = preProject
+		About\About.xml = About\About.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Defs", "Defs", "{798A95CC-2632-48AF-BAE4-F88275300219}"
+	ProjectSection(SolutionItems) = preProject
+		Defs\DirtBags.xml = Defs\DirtBags.xml
+		Defs\ResearchProjects.xml = Defs\ResearchProjects.xml
+		Defs\TerrainDefs.xml = Defs\TerrainDefs.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patches", "Patches", "{4B6627AE-9B0D-40B3-807D-925A7DCBD813}"
+	ProjectSection(SolutionItems) = preProject
+		Patches\Core.xml = Patches\Core.xml
+		Patches\OtherMods.xml = Patches\OtherMods.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Keyed Strings", "Keyed Strings", "{8DA8B4EA-1868-4F9D-AA3F-0C96CDDEA566}"
+	ProjectSection(SolutionItems) = preProject
+		Languages\English\Keyed\Designator.xml = Languages\English\Keyed\Designator.xml
+		Languages\English\Keyed\Settings.xml = Languages\English\Keyed\Settings.xml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		1.4|Any CPU = 1.4|Any CPU
+		1.5|Any CPU = 1.5|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CB743C4A-B703-4729-ACB8-2455E195FBCF}.1.4|Any CPU.ActiveCfg = 1.4|Any CPU
+		{CB743C4A-B703-4729-ACB8-2455E195FBCF}.1.4|Any CPU.Build.0 = 1.4|Any CPU
+		{CB743C4A-B703-4729-ACB8-2455E195FBCF}.1.5|Any CPU.ActiveCfg = 1.5|Any CPU
+		{CB743C4A-B703-4729-ACB8-2455E195FBCF}.1.5|Any CPU.Build.0 = 1.5|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{798A95CC-2632-48AF-BAE4-F88275300219} = {31C29B43-FF75-48AF-AA79-C65D3B0DFEBF}
+		{4B6627AE-9B0D-40B3-807D-925A7DCBD813} = {31C29B43-FF75-48AF-AA79-C65D3B0DFEBF}
+		{8DA8B4EA-1868-4F9D-AA3F-0C96CDDEA566} = {31C29B43-FF75-48AF-AA79-C65D3B0DFEBF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BBA72611-D7CB-4141-967C-DD6685D0CADE}
+	EndGlobalSection
+EndGlobal
