@@ -19,4 +19,8 @@
 	<TilledSoil.WorkAmountExplanation>How much work is required to construct the soil. Concrete: 100, Flagstone: 500.</TilledSoil.WorkAmountExplanation>
 	<TilledSoil.ReloadRequired> &lt;b&gt;Reload save for change to apply.&lt;/b&gt;</TilledSoil.ReloadRequired>
 	<TilledSoil.RestartRequired> &lt;b&gt;Restart game for change to apply.&lt;/b&gt;</TilledSoil.RestartRequired>
+	<!--Mod Integration-->
+	<TiledSoil.ModIntegrationHeader>Mod Integration</TiledSoil.ModIntegrationHeader>
+	<TilledSoil.PackedDirtRequire>Packed dirt uses dirt bags</TilledSoil.PackedDirtRequire>
+	<TilledSoil.PackedDirtRequireExplanation>Packed dirt from VFE - Architect requires dirt to construct.</TilledSoil.PackedDirtRequireExplanation>
 </LanguageData>

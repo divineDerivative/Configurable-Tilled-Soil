@@ -307,23 +307,24 @@ namespace TilledSoil
         internal void SetUpIntegrationHandler(SettingsHandler<TilledSoilSettings> handler)
         {
             handler.verticalSpacing = 10f;
-            var titleRow = handler.RegisterNewRow();
+            UIContainer titleRow = handler.RegisterNewRow();
             titleRow.AddSpace();
             Text.Font = GameFont.Medium;
-            titleRow.AddHeader(() => "Mod Integration", absolute: Text.CalcSize("Mod Integration").x);
+            titleRow.AddHeader("TiledSoil.ModIntegrationHeader".Translate, absolute: Text.CalcSize("TiledSoil.ModIntegrationHeader".Translate()).x);
             Text.Font = GameFont.Small;
             titleRow.AddSpace();
             handler.AddLine();
 
             if (VFEActive)
             {
-                var dirtRow = handler.RegisterNewRow("PackedDirt");
-                dirtRow.AddLabel(() => "Packed dirt uses dirt bags", relative: columnWidth);
+                UIContainer dirtRow = handler.RegisterNewRow("PackedDirt");
+                dirtRow.AddLabel("TilledSoil.PackedDirtRequire".Translate, relative: columnWidth);
                 dirtRow.AddElement(NewElement.Checkbox(relative: columnWidth)
                     .WithReference(this, nameof(packedDirtRequire), packedDirtRequire)
-                    .Alignment(UnityEngine.TextAlignment.Right));
-                dirtRow.AddLabel(() => "Packed dirt from VFE - Architect requires dirt to construct");
-                var costRow = handler.RegisterNewRow("CostAmount");
+                    .Alignment(UnityEngine.TextAlignment.Right)
+                .RegisterResetable(handler, true));
+                dirtRow.AddLabel("TilledSoil.PackedDirtRequireExplanation".Translate);
+                UIContainer costRow = handler.RegisterNewRow("CostAmount");
                 costRow.AddLabel("TilledSoil.DirtCost".Translate, relative: columnWidth, name: "SoilCostLabel");
                 costRow.AddElement(NewElement.InputLine<int>(relative: columnWidth)
                     .WithReference(this, nameof(packedDirtCost), packedDirtCost)
@@ -333,6 +334,11 @@ namespace TilledSoil
                 costRow.AddLabel(() => DirtCostExplanationKey(cachedPackedDirtCost, packedDirtCost), name: "SoilCostExplanation");
                 costRow.HideWhen(() => !packedDirtRequire);
             }
+
+            UIContainer resetRow = handler.RegisterNewRow("ResetButtonRow");
+            resetRow.AddSpace(relative: columnWidth);
+            resetRow.AddResetButton(handler, relative: columnWidth, name: "ResetButton");
+            resetRow.AddSpace();
         }
     }
 }
