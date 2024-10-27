@@ -21,11 +21,6 @@ namespace TilledSoil
             TilledSoilSettings.TilledSoil = TerrainDef.Named("TilledSoil");
             TilledSoilSettings.TilledSoil.SetStatBaseValue(StatDefOf.WorkToBuild, TilledSoilMod.settings.workAmount);
             TilledSoilSettings.cachedWorkAmount = TilledSoilMod.settings.workAmount;
-
-            if (TilledSoilSettings.VFEActive)
-            {
-                TilledSoilSettings.PackedDirt = TerrainDef.Named("VFEArch_PlayerPackedDirt");
-            }
         }
     }
 
