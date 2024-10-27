@@ -77,9 +77,9 @@
     <Compile Include="WorkGiver_GatherDirtBags.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="0DivineFramework">
+    <Reference Include="0DivineFramework, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\DivineFramework\Assemblies\0DivineFramework.dll</HintPath>
-      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

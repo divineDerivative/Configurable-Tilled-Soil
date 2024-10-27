@@ -1,4 +1,5 @@
 ﻿using DivineFramework;
+using DivineFramework.UI;
 using HarmonyLib;
 using RimWorld;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace TilledSoil
             settings = GetSettings<TilledSoilSettings>();
             Harmony harmony = new("divineDerivative.tilledsoil");
             harmony.PatchAll();
-            ModManagement.RegisterMod("TilledSoil.ModTitle", typeof(TilledSoilMod).Assembly.GetName().Name, new("0.2.1.0"), "<color=#567b2a>[TilledSoil]</color>");
+            ModManagement.RegisterMod("TilledSoil.ModTitle", typeof(TilledSoilMod).Assembly.GetName().Name, new("0.3.0.0"), "<color=#567b2a>[TilledSoil]</color>");
         }
 
         public override void WriteSettings()
