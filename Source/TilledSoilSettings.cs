@@ -118,9 +118,9 @@ namespace TilledSoil
 
         void SetUpTillingDestroysRow(SettingsHandler<TilledSoilSettings> handler)
         {
-            UIContainer row = handler.RegisterNewRow("TillingDestroysRow");
+            UIRow row = handler.RegisterNewRow("TillingDestroysRow");
             row.AddLabel("TilledSoil.TillingDestroys".Translate, relative: columnWidth);
-            row.AddElement(NewElement.Checkbox(relative: columnWidth)
+            row.Add(NewElement.Checkbox(relative: columnWidth)
                 .WithReference(this, nameof(tillingDestroysPlants), tillingDestroysPlants)
                 .RegisterResetable(handler, true)
                 .Alignment(UnityEngine.TextAlignment.Right), "TillingDestroysCheckbox");
@@ -129,9 +129,9 @@ namespace TilledSoil
 
         void SetUpFertilityRow(SettingsHandler<TilledSoilSettings> handler)
         {
-            UIContainer row = handler.RegisterNewRow("FertilityRow");
+            UIRow row = handler.RegisterNewRow("FertilityRow");
             row.AddLabel(() => "TilledSoil.FertilityLabel".Translate(fertility.ToString()), relative: columnWidth, name: "FertilityLabel");
-            row.AddElement(NewElement.InputLine<int>(relative: columnWidth)
+            row.Add(NewElement.InputLine<int>(relative: columnWidth)
                 .WithReference(this, nameof(fertility), fertility)
                 .MinMax(0, 1000)
                 .WithIncrementButtons()
@@ -141,11 +141,11 @@ namespace TilledSoil
 
         void SetUpTillAffordanceRow(SettingsHandler<TilledSoilSettings> handler)
         {
-            UIContainer row = handler.RegisterNewRow("TillAffordanceRow");
+            UIRow row = handler.RegisterNewRow("TillAffordanceRow");
             row.AddLabel("TilledSoil.AffordanceTill".Translate, relative: columnWidth, name: "TillAffordanceLabel");
-            UIContainer innerContainer = row.AddContainer(relative: columnWidth);
+            UIRow innerContainer = row.AddRow(relative: columnWidth);
             innerContainer.AddSpace();
-            innerContainer.AddElement(NewElement.Button(TillAffordanceOnClick, relative: 0.6f)
+            innerContainer.Add(NewElement.Button(TillAffordanceOnClick, relative: 0.6f)
                 .WithReference(this, nameof(canTillOn), canTillOn)
                 .WithLabel(() => DefDatabase<TerrainAffordanceDef>.GetNamed(canTillOn).label)
                 .RegisterResetable(handler, "GrowSoil"), "TillAffordanceButton");
@@ -185,11 +185,11 @@ namespace TilledSoil
 
         void SetUpDirtAffordanceRow(SettingsHandler<TilledSoilSettings> handler)
         {
-            UIContainer row = handler.RegisterNewRow("DirtAffordanceRow");
+            UIRow row = handler.RegisterNewRow("DirtAffordanceRow");
             row.AddLabel("TilledSoil.AffordanceDirt".Translate, relative: columnWidth, name: "DirtAffordanceLabel");
-            UIContainer innerContainer = row.AddContainer(relative: columnWidth);
+            UIRow innerContainer = row.AddRow(relative: columnWidth);
             innerContainer.AddSpace();
-            innerContainer.AddElement(NewElement.Button(DirtAffordanceOnClick, relative: 0.6f)
+            innerContainer.Add(NewElement.Button(DirtAffordanceOnClick, relative: 0.6f)
                 .WithReference(this, nameof(canTurnIntoDirt), canTurnIntoDirt)
                 .RegisterResetable(handler, "SmoothableStone")
                 .WithLabel(() => DefDatabase<TerrainAffordanceDef>.GetNamed(canTurnIntoDirt).label), name: "DirtAffordanceButton");
@@ -232,9 +232,9 @@ namespace TilledSoil
         void SetUpSoilRequiredRow(SettingsHandler<TilledSoilSettings> handler)
         {
             cachedSoilRequirement = requireCost;
-            UIContainer row = handler.RegisterNewRow("SoilRequiredRow");
+            UIRow row = handler.RegisterNewRow("SoilRequiredRow");
             row.AddLabel("TilledSoil.RequireCost".Translate, relative: columnWidth);
-            row.AddElement(NewElement.Checkbox(relative: columnWidth)
+            row.Add(NewElement.Checkbox(relative: columnWidth)
                 .WithReference(this, nameof(requireCost), requireCost)
                 .RegisterResetable(handler, true)
                 .Alignment(UnityEngine.TextAlignment.Right), name: "SoilRequiredCheckbox");
@@ -253,9 +253,9 @@ namespace TilledSoil
 
         void SetUpSoilCostRow(SettingsHandler<TilledSoilSettings> handler)
         {
-            UIContainer row = handler.RegisterNewRow("SoilCostRow");
+            UIRow row = handler.RegisterNewRow("SoilCostRow");
             row.AddLabel("TilledSoil.DirtCost".Translate, relative: columnWidth, name: "SoilCostLabel");
-            row.AddElement(NewElement.InputLine<int>(relative: columnWidth)
+            row.Add(NewElement.InputLine<int>(relative: columnWidth)
                 .WithReference(this, nameof(soilCost), soilCost)
                 .MinMax(1, 100)
                 .WithIncrementButtons()
@@ -278,9 +278,9 @@ namespace TilledSoil
 
         void SetUpWorkAmountRow(SettingsHandler<TilledSoilSettings> handler)
         {
-            UIContainer row = handler.RegisterNewRow("WorkAmountRow");
+            UIRow row = handler.RegisterNewRow("WorkAmountRow");
             row.AddLabel("TilledSoil.WorkAmount".Translate, relative: columnWidth, name: "WorkAmountLabel");
-            row.AddElement(NewElement.InputLine<int>(relative: columnWidth)
+            row.Add(NewElement.InputLine<int>(relative: columnWidth)
                 .WithReference(this, nameof(workAmount), workAmount)
                 .WithIncrementButtons()
                 .MinMax(1, 10000)
@@ -302,7 +302,7 @@ namespace TilledSoil
 
         void SetUpResetButton(SettingsHandler<TilledSoilSettings> handler)
         {
-            UIContainer row = handler.RegisterNewRow("ResetButtonRow");
+            UIRow row = handler.RegisterNewRow("ResetButtonRow");
             row.AddSpace(relative: columnWidth);
             row.AddResetButton(handler, relative: columnWidth, name: "ResetButton");
             row.AddSpace();
@@ -311,7 +311,7 @@ namespace TilledSoil
         internal void SetUpIntegrationHandler(SettingsHandler<TilledSoilSettings> handler)
         {
             handler.verticalSpacing = 10f;
-            UIContainer titleRow = handler.RegisterNewRow();
+            UIRow titleRow = handler.RegisterNewRow();
             titleRow.AddSpace();
             Text.Font = GameFont.Medium;
             titleRow.AddHeader("TiledSoil.ModIntegrationHeader".Translate, absolute: Text.CalcSize("TiledSoil.ModIntegrationHeader".Translate()).x);
@@ -321,16 +321,16 @@ namespace TilledSoil
 
             if (VFEActive)
             {
-                UIContainer dirtRow = handler.RegisterNewRow("PackedDirt");
+                UIRow dirtRow = handler.RegisterNewRow("PackedDirt");
                 dirtRow.AddLabel("TilledSoil.PackedDirtRequire".Translate, relative: columnWidth);
-                dirtRow.AddElement(NewElement.Checkbox(relative: columnWidth)
+                dirtRow.Add(NewElement.Checkbox(relative: columnWidth)
                     .WithReference(this, nameof(packedDirtRequire), packedDirtRequire)
                     .Alignment(UnityEngine.TextAlignment.Right)
                 .RegisterResetable(handler, true));
                 dirtRow.AddLabel("TilledSoil.PackedDirtRequireExplanation".Translate);
-                UIContainer costRow = handler.RegisterNewRow("CostAmount");
+                UIRow costRow = handler.RegisterNewRow("CostAmount");
                 costRow.AddLabel("TilledSoil.DirtCost".Translate, relative: columnWidth, name: "SoilCostLabel");
-                costRow.AddElement(NewElement.InputLine<int>(relative: columnWidth)
+                costRow.Add(NewElement.InputLine<int>(relative: columnWidth)
                     .WithReference(this, nameof(packedDirtCost), packedDirtCost)
                     .MinMax(1, 100)
                     .WithIncrementButtons()
@@ -339,7 +339,7 @@ namespace TilledSoil
                 costRow.HideWhen(() => !packedDirtRequire);
             }
 
-            UIContainer resetRow = handler.RegisterNewRow("ResetButtonRow");
+            UIRow resetRow = handler.RegisterNewRow("ResetButtonRow");
             resetRow.AddSpace(relative: columnWidth);
             resetRow.AddResetButton(handler, relative: columnWidth, name: "ResetButton");
             resetRow.AddSpace();
