@@ -6,7 +6,9 @@
 		<description>Tilled Soil, for planting and growing crops on.</description>
 		<texturePath>SoilTilled</texturePath>
 		<edgeType>FadeRough</edgeType>
+		<categoryType>Soil</categoryType>
 		<layerable>True</layerable>
+		<temporary IgnoreIfNoMatchingField="True">True</temporary>
 		<renderPrecedence>335</renderPrecedence>
 		<designationCategory>Floors</designationCategory>
 		<constructEffect>ConstructDirt</constructEffect>
