@@ -16,7 +16,7 @@ namespace TilledSoil
             settings = GetSettings<TilledSoilSettings>();
             Harmony harmony = new("divineDerivative.tilledsoil");
             harmony.PatchAll();
-            ModManagement.RegisterMod("TilledSoil.ModTitle", typeof(TilledSoilMod).Assembly.GetName().Name, new("0.8.1.0"), "<color=#567b2a>[TilledSoil]</color>");
+            ModManagement.RegisterMod("TilledSoil.ModTitle", typeof(TilledSoilMod).Assembly.GetName().Name, new("0.9.0.10"), "<color=#567b2a>[TilledSoil]</color>");
         }
 
         public override void WriteSettings()
