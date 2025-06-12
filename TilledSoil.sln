@@ -33,12 +33,15 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		1.4|Any CPU = 1.4|Any CPU
 		1.5|Any CPU = 1.5|Any CPU
+		1.6|Any CPU = 1.6|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CB743C4A-B703-4729-ACB8-2455E195FBCF}.1.4|Any CPU.ActiveCfg = 1.4|Any CPU
 		{CB743C4A-B703-4729-ACB8-2455E195FBCF}.1.4|Any CPU.Build.0 = 1.4|Any CPU
 		{CB743C4A-B703-4729-ACB8-2455E195FBCF}.1.5|Any CPU.ActiveCfg = 1.5|Any CPU
 		{CB743C4A-B703-4729-ACB8-2455E195FBCF}.1.5|Any CPU.Build.0 = 1.5|Any CPU
+		{CB743C4A-B703-4729-ACB8-2455E195FBCF}.1.6|Any CPU.ActiveCfg = 1.6|Any CPU
+		{CB743C4A-B703-4729-ACB8-2455E195FBCF}.1.6|Any CPU.Build.0 = 1.6|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
