@@ -34,7 +34,7 @@
     <ErrorReport>prompt</ErrorReport>
     <DefineConstants>v1_5</DefineConstants>
   </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '1.6|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '1.6|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>..\1.6\Assemblies\</OutputPath>
     <Optimize>false</Optimize>
@@ -73,7 +73,7 @@
         </PackageReference>
       </ItemGroup>
     </When>
-        <When Condition="'$(Configuration)|$(Platform)' == '1.6|AnyCPU'">
+    <When Condition="'$(Configuration)|$(Platform)' == '1.6|AnyCPU'">
       <ItemGroup>
         <PackageReference Include="Lib.Harmony" Version="2.3.*">
           <ExcludeAssets>runtime</ExcludeAssets>
