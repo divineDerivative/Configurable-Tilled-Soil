@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{31C29B43-FF75-48AF-AA79-C65D3B0DFEBF}"
 	ProjectSection(SolutionItems) = preProject
 		About\About.xml = About\About.xml
+		1.6\Defs\Extra Soil Def.xml = 1.6\Defs\Extra Soil Def.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Defs", "Defs", "{798A95CC-2632-48AF-BAE4-F88275300219}"

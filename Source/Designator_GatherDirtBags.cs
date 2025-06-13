@@ -6,7 +6,11 @@ namespace TilledSoil
 {
     public class Designator_GatherDirtBags : Designator_Cells
     {
+#if v1_6
+        public override DrawStyleCategoryDef DrawStyleCategory => DrawStyleCategoryDefOf.Mine;
+#else
         public override int DraggableDimensions => 2;
+#endif
         public override bool DragDrawMeasurements => true;
 
         public Designator_GatherDirtBags()
