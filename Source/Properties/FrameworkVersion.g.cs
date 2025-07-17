@@ -1,5 +1,7 @@
-namespace TilledSoil {
-   internal static class FrameworkVersionInfo {
-       public const string Version = "0.11.0.1";
-   }
+namespace TilledSoil
+{
+    internal static class FrameworkVersionInfo
+    {
+        public const string Version = "0.11.0.2";
+    }
 }
