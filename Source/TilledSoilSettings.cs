@@ -88,7 +88,6 @@ namespace TilledSoil
         float columnWidth = (1f / 3f) - 0.1f;
         internal void SetUpHandler(SettingsHandler<TilledSoilSettings> handler)
         {
-            handler.verticalSpacing = 10f;
             //Fertility
             SetUpFertilityRow(handler);
 
@@ -122,7 +121,7 @@ namespace TilledSoil
             row.AddLabel("TilledSoil.TillingDestroys".Translate, relative: columnWidth);
             row.Add(NewElement.Checkbox(relative: columnWidth)
                 .WithReference(this, nameof(tillingDestroysPlants), tillingDestroysPlants)
-                .RegisterResetable(handler, true)
+                .RegisterResettable(handler, true)
                 .Alignment(UnityEngine.TextAlignment.Right), "TillingDestroysCheckbox");
             row.AddLabel("TilledSoil.TillingDestroysExplanation".Translate);
         }
@@ -135,7 +134,7 @@ namespace TilledSoil
                 .WithReference(this, nameof(fertility), fertility)
                 .MinMax(0, 1000)
                 .WithIncrementButtons()
-                .RegisterResetable(handler, 120), name: "FertilityAmountEntry");
+                .RegisterResettable(handler, 120), name: "FertilityAmountEntry");
             row.AddLabel("TilledSoil.FertilityExplanation".Translate, name: "FertilityExplanation");
         }
 
@@ -148,7 +147,7 @@ namespace TilledSoil
             innerContainer.Add(NewElement.Button(TillAffordanceOnClick, relative: 0.6f)
                 .WithReference(this, nameof(canTillOn), canTillOn)
                 .WithLabel(() => DefDatabase<TerrainAffordanceDef>.GetNamed(canTillOn).label)
-                .RegisterResetable(handler, "GrowSoil"), "TillAffordanceButton");
+                .RegisterResettable(handler, "GrowSoil"), "TillAffordanceButton");
             row.AddLabel(TillAffordanceExplanationKey, name: "TillAffordanceExpalation");
         }
 
@@ -191,7 +190,7 @@ namespace TilledSoil
             innerContainer.AddSpace();
             innerContainer.Add(NewElement.Button(DirtAffordanceOnClick, relative: 0.6f)
                 .WithReference(this, nameof(canTurnIntoDirt), canTurnIntoDirt)
-                .RegisterResetable(handler, "SmoothableStone")
+                .RegisterResettable(handler, "SmoothableStone")
                 .WithLabel(() => DefDatabase<TerrainAffordanceDef>.GetNamed(canTurnIntoDirt).label), name: "DirtAffordanceButton");
             row.AddLabel(DirtAffordanceExplanationKey, name: "DirtAffordanceExplanation");
         }
@@ -236,7 +235,7 @@ namespace TilledSoil
             row.AddLabel("TilledSoil.RequireCost".Translate, relative: columnWidth);
             row.Add(NewElement.Checkbox(relative: columnWidth)
                 .WithReference(this, nameof(requireCost), requireCost)
-                .RegisterResetable(handler, true)
+                .RegisterResettable(handler, true)
                 .Alignment(UnityEngine.TextAlignment.Right), name: "SoilRequiredCheckbox");
             row.AddLabel(RequireCostExplanationKey, name: "SoilRequiredExplanation");
         }
@@ -259,7 +258,7 @@ namespace TilledSoil
                 .WithReference(this, nameof(soilCost), soilCost)
                 .MinMax(1, 100)
                 .WithIncrementButtons()
-                .RegisterResetable(handler, 1), name: "SoilCostEntry");
+                .RegisterResettable(handler, 1), name: "SoilCostEntry");
             row.AddLabel(() => DirtCostExplanationKey(cachedSoilCost, soilCost), name: "SoilCostExplanation");
             row.HideWhen(() => !requireCost);
         }
@@ -284,7 +283,7 @@ namespace TilledSoil
                 .WithReference(this, nameof(workAmount), workAmount)
                 .WithIncrementButtons()
                 .MinMax(1, 10000)
-                .RegisterResetable(handler, 500), name: "WorkAmountEntry");
+                .RegisterResettable(handler, 500), name: "WorkAmountEntry");
             row.AddLabel(WorkAmountExplanationKey, name: "WorkAmountExplanation");
         }
 
@@ -310,7 +309,6 @@ namespace TilledSoil
 
         internal void SetUpIntegrationHandler(SettingsHandler<TilledSoilSettings> handler)
         {
-            handler.verticalSpacing = 10f;
             UIRow titleRow = handler.RegisterNewRow();
             titleRow.AddSpace();
             Text.Font = GameFont.Medium;
@@ -326,7 +324,7 @@ namespace TilledSoil
                 dirtRow.Add(NewElement.Checkbox(relative: columnWidth)
                     .WithReference(this, nameof(packedDirtRequire), packedDirtRequire)
                     .Alignment(UnityEngine.TextAlignment.Right)
-                .RegisterResetable(handler, true));
+                .RegisterResettable(handler, true));
                 dirtRow.AddLabel("TilledSoil.PackedDirtRequireExplanation".Translate);
                 UIRow costRow = handler.RegisterNewRow("CostAmount");
                 costRow.AddLabel("TilledSoil.DirtCost".Translate, relative: columnWidth, name: "SoilCostLabel");
@@ -334,7 +332,7 @@ namespace TilledSoil
                     .WithReference(this, nameof(packedDirtCost), packedDirtCost)
                     .MinMax(1, 100)
                     .WithIncrementButtons()
-                    .RegisterResetable(handler, 1), name: "SoilCostEntry");
+                    .RegisterResettable(handler, 1), name: "SoilCostEntry");
                 costRow.AddLabel(() => DirtCostExplanationKey(cachedPackedDirtCost, packedDirtCost), name: "SoilCostExplanation");
                 costRow.HideWhen(() => !packedDirtRequire);
             }

@@ -27,8 +27,8 @@ namespace TilledSoil
 
         public override string SettingsCategory() => "TilledSoil.ModTitle".Translate();
 
-        internal SettingsHandler<TilledSoilSettings> settingsHandler = new();
-        internal SettingsHandler<TilledSoilSettings> integrationHandler = new();
+        internal SettingsHandler<TilledSoilSettings> settingsHandler = new(verticalSpacing: 10f);
+        internal SettingsHandler<TilledSoilSettings> integrationHandler = new(verticalSpacing: 10f);
 
         public override void DoSettingsWindowContents(Rect canvas)
         {
