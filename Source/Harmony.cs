@@ -48,6 +48,7 @@ namespace TilledSoil
         }
     }
 
+#if v1_6
     //Prevent dirt from being placed on top of soil
     [HarmonyPatch(typeof(GenConstruct), nameof(GenConstruct.CanPlaceBlueprintAt))]
     public static class GenConstruct_CanPlaceBlueprintAt
@@ -102,4 +103,5 @@ namespace TilledSoil
             return false;
         }
     }
+#endif
 }
