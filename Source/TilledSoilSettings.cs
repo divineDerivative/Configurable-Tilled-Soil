@@ -61,7 +61,11 @@ namespace TilledSoil
             }
             if (!SoilRelocationActive)
             {
+#if v1_6
                 DefOfTS.Dirt.terrainAffordanceNeeded = DefDatabase<TerrainAffordanceDef>.GetNamed(canTurnIntoDirt);
+#else
+                TerrainDefOf.Soil.terrainAffordanceNeeded = DefDatabase<TerrainAffordanceDef>.GetNamed(canTurnIntoDirt);
+#endif
             }
             if (VFEActive)
             {
