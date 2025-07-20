@@ -16,7 +16,7 @@ namespace TilledSoil
             settings = GetSettings<TilledSoilSettings>();
             Harmony harmony = new("divineDerivative.tilledsoil");
             harmony.PatchAll();
-            ModManagement.RegisterMod("TilledSoil.ModTitle", typeof(TilledSoilMod).Assembly.GetName().Name, new(FrameworkVersionInfo.Version), "<color=#567b2a>[TilledSoil]</color>");
+            ModManagement.RegisterMod("TilledSoil.ModTitle", new(FrameworkVersionInfo.Version));
         }
 
         public override void WriteSettings()
@@ -53,5 +53,11 @@ namespace TilledSoil
 
             list.End();
         }
+    }
+
+    internal class TilledSoilLogger : Logging
+    {
+        public static readonly TilledSoilLogger LogUtil = new TilledSoilLogger();
+        private TilledSoilLogger() : base("<color=#567b2a>[TilledSoil]</color>", () => true) { }
     }
 }

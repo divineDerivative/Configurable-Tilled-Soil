@@ -1,4 +1,4 @@
-﻿using DivineFramework;
+﻿using static TilledSoil.TilledSoilLogger;
 using DivineFramework.UI;
 using RimWorld;
 using System.Collections.Generic;
