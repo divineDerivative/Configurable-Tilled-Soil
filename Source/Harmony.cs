@@ -103,5 +103,21 @@ namespace TilledSoil
             return false;
         }
     }
+
+    [HarmonyPatch(typeof(WorkGiver_ConstructDeliverResources), "ShouldRemoveExistingFloorFirst")]
+    public static class WorkGiver_ConstructDeliverResources_ShouldRemoveExistingFloorFirst
+    {
+        public static void Postfix(Blueprint blue, ref bool __result)
+        {
+            if (blue.def.entityDefToBuild == TilledSoilSettings.TilledSoil)
+            {
+                TerrainDef existing = blue.Map.terrainGrid.TopTerrainAt(blue.Position);
+                if (existing == DefOfTS.Dirt)
+                {
+                    __result = false;
+                }
+            }
+        }
+    }
 #endif
 }
