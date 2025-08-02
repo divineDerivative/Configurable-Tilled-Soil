@@ -50,7 +50,8 @@ namespace TilledSoil
 
 #if v1_6
     //Prevent dirt from being placed on top of soil
-    [HarmonyPatch(typeof(GenConstruct), nameof(GenConstruct.CanPlaceBlueprintAt))]
+    //Actually don't seem to need this?
+    // [HarmonyPatch(typeof(GenConstruct), nameof(GenConstruct.CanPlaceBlueprintAt))]
     public static class GenConstruct_CanPlaceBlueprintAt
     {
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
