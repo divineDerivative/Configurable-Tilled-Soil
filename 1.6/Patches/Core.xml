@@ -7,4 +7,10 @@
 			<li>TilledSoil.Designator_GatherDirtBags</li>
 		</value>
 	</Operation>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ResearchProjectDef[defName="terrainRehab"]/discoveredLetterText</xpath>
+		<value>
+			<discoveredLetterText>You can now place dirt on other natural floors to create new growing areas.</discoveredLetterText>
+		</value>
+	</Operation>
 </Patch>
